@@ -20,31 +20,34 @@ const app = dialogflow({debug: true});
 // Set the DialogflowApp object to handle the HTTPS POST request.
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
 
+// All supported emotions and their corresponding color
 const emotionColors = {
-  "energetic": "yellow",
-  "hyper": "yellow",
-  "manic": "yellow",
+  "energetic": "yellow", "hyper": "yellow", "manic": "yellow",
 
-  "active": "purple",
-  "focused": "purple",
-  "motivated": "purple",
+  "active": "purple", "focused": "purple", "motivated": "purple", 
   "productive": "purple",
 
-  "happy": "pink",
-  "excited": "pink",
-  "overjoy": "pink",
-  "silly": "pink",
+  "happy": "pink", "excited": "pink", "overjoy": "pink", "silly": "pink",
 
-  "calm": "green",
-  "refreshed": "green",
-  "relaxed": "green",
-  "zen": "green"
+  "calm": "green", "refreshed": "green", "relaxed": "green", "zen": "green",
+
+  "normal": "white", "neutral": "white", "uneventful": "white",
+
+  "depressed": "blue", "sad": "blue", "emotional": "blue", 
+  "gloomy": "blue", "weepy": "blue",
+
+  "exhausted": "gray", "tired": "gray", "fatigued": "gray",
+  "lethargic":"gray", "lazy":"gray", "sleepy":"gray",
+
+  "stressed": "black",
+
+  "anxious":"orange", "nervous":"orange", "insecure": "orange"
 }
 
 
 // See if the user has stored a name for Cheqin to use.
 // If such name is stored, use it as part of the greeting.
-// If not, ask the user to grant permission using the "actions_intent_PERMISSION" intent
+// If not, ask for permission using the "actions_intent_PERMISSION" intent
 app.intent("Default Welcome Intent", (conv) => {
   const name = conv.user.storage.userName;
   if (!name) {
@@ -80,24 +83,51 @@ app.intent("Current Emotion Positive High", (conv, {emotion}) => {
   conv.data.userEmotion = String(emotion).toLowerCase();
   const userName = conv.user.storage.userName;
   if (userName) {
-    conv.ask(`How exciting, ${userName}! I would love to hear all about it. Care to share your day with me?`);
+    conv.ask(`How exciting, ${userName}! I would love to hear all about it. ` +
+             `Care to share your day with me?`);
   } else {
-    conv.ask("How exciting! I would love to hear all about it. Care to share your day with me?");
+    conv.ask("How exciting! I would love to hear all about it. " + 
+             "Care to share your day with me?");
   }
   conv.ask(new Suggestions('Yes', 'No'));
 });
 
 
-// If the user agrees to share his/her day, start recording the content for a potential journal entry.
+// This intent matches all of the positive emotions with low energy.
+// After the user provides an emotion, prompt the user to share his/her day
+// based on the particular emotion
+app.intent("Current Emotion Positive Low", (conv, {emotion}) => {
+  conv.data.userEmotion = String(emotion).toLowerCase();
+  if (emotionColors[conv.data.userEmotion] === "white") {
+    conv.ask("Oh, that's interesting. Would you like to talk about it?");
+  } else {
+    conv.ask("Oh, that's great. I would love to hear more about it. " +
+             "Care to share your day with me?");
+  }
+  conv.ask(new Suggestions('Yes', 'No'));
+});
+
+
+// If the user agrees to share his/her day, start recording the content 
+// for a potential journal entry.
 app.intent("Current Emotion Positive High - yes", (conv) => {
   conv.data.emotionType = "positiveHigh";
-  conv.ask("Great! I will listen for as long as you need, and I promise I'm not checking my phone!");
+  conv.ask("Great! I will listen for as long as you need, " +
+           "and I promise I'm not checking my phone!");
+});
+
+app.intent("Current Emotion Positive Low - yes", (conv) => {
+  conv.data.emotionType = "positiveLow";
+  conv.ask("Great! I will listen for as long as you need, " +
+           "and I promise I'm not checking my phone!");
 });
 
 
 // If the user chooses not to share his/her day, say goodbye and end the conversation.
-app.intent("Current Emotion Positive High - no", (conv) => {
-  conv.close("No worries. Just know that I'm rooting for you out there. I can't wait to talk to you again soon. Bye!");
+app.intent(["Current Emotion Positive High - no", "Current Emotion Positive Low - no"],
+ (conv) => {
+  conv.close("No worries. Just know that I'm rooting for you out there. " + 
+             "I can't wait to talk to you again soon. Bye!");
 });
 
 
@@ -105,12 +135,12 @@ app.intent("Current Emotion Positive High - no", (conv) => {
 // fails to extract any particular entity from the user's query.
 // However, I have designed this intent to also be triggered when the
 // user inputs the actual content for the journal entry or when adding tags, 
-// because the journal entry itself and the tags typically contains no useful information 
-// for Dialogflowo to extract.
+// because the journal entry itself and the tags typically contains no useful 
+// information for Dialogflowo to extract.
 // This is made possible using the output context "UserInitiatesEntryLogging" 
 // and "UserChoosesToAddTags" from previous intents. 
-// When the user query contains this input context, add the followup event accordingly
-// so that Dialogflow can redirect the user's query to the correct intent. 
+// When the user query contains this input context, add the followup event 
+// accordingly so that Dialogflow can redirect the user's query to the correct intent. 
 // For any other case, redirect to the actual fallback intent.
 app.intent("Default Fallback Intent", (conv) => {
   if (conv.contexts.get("userinitiatesentrylogging")) {
@@ -132,6 +162,8 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh") {
     conv.ask("Awesome job! I'm glad that you're having such a good day.");
+  } else if (userEmotionType === "positiveLow") {
+    conv.ask("Awesome! It sounds like you day has a lot of potential.");
   }
   conv.ask(" Before you go, do you want me to save this chat as a journal entry?");
   conv.ask(new Suggestions('Yes', 'No'));
@@ -171,6 +203,12 @@ app.intent("Initiate Potential Journal Entry - yes - no", (conv) => {
            "What color would you assign this entry?");
   if (conv.data.emotionType = "positiveHigh") {
     conv.ask(new Suggestions("Yellow", "Purple", "Pink"));
+  } else if (conv.data.emotionType = "positiveLow") {
+    conv.ask(new Suggestions("White", "Green"));
+  } else if (conv.data.emotion = "negativeHigh") {
+    conv.ask(new Suggestions("Orange", "Black", "White"));
+  } else if (conv.data.emotion = "negativeLow") {
+    conv.ask(new Suggestions("Gray", "Blue"));
   }
 })
 
@@ -178,7 +216,7 @@ app.intent("Initiate Potential Journal Entry - yes - no", (conv) => {
 // This intent is matched when the user says the intepreted color is incorrect
 // and proceeds to give the correct color
 app.intent("Initiate Potential Journal Entry - yes - no - custom", (conv, {color}) => {
-  conv.data.storedColor = color;
+  conv.data.storedColor = String(color).toLowerCase();
   conv.followup("color_is_saved");
 })
 
