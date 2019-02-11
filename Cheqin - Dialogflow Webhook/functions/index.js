@@ -133,7 +133,7 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
   if (userEmotionType === "positiveHigh") {
     conv.ask("Awesome job! I'm glad that you're having such a good day.");
   }
-  conv.ask("Before you go, do you want me to save this chat as a journal entry?");
+  conv.ask(" Before you go, do you want me to save this chat as a journal entry?");
   conv.ask(new Suggestions('Yes', 'No'));
 })
 
@@ -147,24 +147,26 @@ app.intent("Initiate Potential Journal Entry - no", (conv) => {
 
 // When the user finishes logging the journal entry but chooses to log it,
 // ask about the color for this log.
-app.intent("Initiate Potential Journal Entry - yes and prompt color", (conv) => {
+app.intent("Initiate Potential Journal Entry - yes", (conv) => {
   const possibleColor = emotionColors[conv.data.userEmotion];
   conv.ask(`Great! Based on what you told me, I think that you might be feeling ` + 
            `${possibleColor}. Is that correct?`);
   conv.ask(new Suggestions('Yes', 'No'));
 })
 
+
 // When the user confirms that the interpreted color is correct, store the color
 // and jump to the intent that prompts the user for tags using the 
 // "color_is_saved" event.
-app.intent("Correct Color", (conv) => {
+app.intent("Initiate Potential Journal Entry - yes - yes", (conv) => {
   conv.data.storedColor = emotionColors[conv.data.userEmotion];
   conv.followup("color_is_saved");
 })
 
+
 // When the user says the interpreted color is incorrect, apologize and give
 // the user suggestions based on the broad emotion type.
-app.intent("Incorrect Color", (conv) => {
+app.intent("Initiate Potential Journal Entry - yes - no", (conv) => {
   conv.ask("Oh, whoops! Sorry, sometimes I still struggle with these human emotions. " +
            "What color would you assign this entry?");
   if (conv.data.emotionType = "positiveHigh") {
@@ -172,23 +174,34 @@ app.intent("Incorrect Color", (conv) => {
   }
 })
 
+
+// This intent is matched when the user says the intepreted color is incorrect
+// and proceeds to give the correct color
+app.intent("Initiate Potential Journal Entry - yes - no - custom", (conv, {color}) => {
+  conv.data.storedColor = color;
+  conv.followup("color_is_saved");
+})
+
+
 // Prompts the user to optionally add tags to a journal entry.
 app.intent("Prompt for Tags", (conv) => {
-  conv.data.storedColor = emotionColors[conv.data.userEmotion];
   conv.ask(`Okay, the color ${conv.data.storedColor} has been saved! One last thing, ` + 
            `Do you have any tags to add to this entry?`);
   conv.ask(new Suggestions('Yes', 'No'));
 })
+
 
 // If the user chooses not to add tags, end the conversation.
 app.intent("Prompt for Tags - no", (conv) => {
   conv.followup("user_finished_conversation");
 })
 
+
 // If the user chooses to add tags, prompt the user to list all the desired tags.
 app.intent("Prompt for Tags - yes", (conv) => {
   conv.ask("Okay! Please list any tags you want.");
 })
+
 
 // Triggered when the user wants to add tags, 
 // TODO: parse the user input and save it to the conversation data
