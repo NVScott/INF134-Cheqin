@@ -1,1 +1,22 @@
+img {
+  width:75%; /* you can use % */
+  height: auto;
+}
+
+.back {
+  background-color: #ffffff;
+}
+
+.button-col {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
+
+
+ion-content{
+  --ion-background-color: var(--ion-color-back);
+  --overflow: hidden;
+
+}
 
