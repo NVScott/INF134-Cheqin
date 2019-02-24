@@ -11,19 +11,21 @@ const {
   BasicCard,
 } = require('actions-on-google');
 
+// import * as functions from 'firebase-functions';
+// import * as admin from 'firebase-admin';
+
 // Import the firebase-functions package for deployment.
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
-// Initializing the connection between this webhook and our firebase DB
 admin.initializeApp()
+
 
 // Instantiate the Dialogflow client.
 const app = dialogflow({debug: true});
 
 // Set the DialogflowApp object to handle the HTTPS POST request.
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
-
 
 // All supported emotions and their corresponding color
 const emotionColors = {
@@ -55,8 +57,6 @@ const emotionColors = {
 // If not, ask for permission using the "actions_intent_PERMISSION" intent
 app.intent("Default Welcome Intent", (conv) => {
   const name = conv.user.storage.userName;
-  conv.data.initiatedTime = String(Date.now());
-  conv.data.repromptCount = 0;
   if (!name) {
     conv.ask(new Permission({
       context: "Hi there, to get to know you better",
@@ -67,21 +67,6 @@ app.intent("Default Welcome Intent", (conv) => {
     conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
   }
 });
-
-
-// This intent is triggered when the user provides something that's unrelated to any
-// currently supported emotions. The intent will be matched to at most three times
-// before terminating the conversation altogether.
-app.intent("Default Welcome Intent - fallback", conv => {
-  conv.data.repromptCount += 1;
-  if (conv.data.repromptCount === 1) {
-    conv.ask("Sorry, but I didn't get that. How are you feeling right now?");
-  } else if (conv.data.repromptCount === 2) {
-    conv.ask("I'm really sorry, but do you mind telling me how are you feeling right now one more time?")
-  } else if (conv.data.repromptCount === 3) {
-    conv.followup("failed_fallback");
-  }
-})
 
 
 // Prompts the user to allow access to the user's name stored in the Google Account
@@ -99,31 +84,10 @@ app.intent("actions_intent_PERMISSION", (conv, params, permissionGranted) => {
 });
 
 
-
-// This intent is matched when the user gives a response like "I need to talk to
-// you later" at anytime of the conversation. When matched, this intent makes the
-// agent gracefully say goodbye to the user while storing the existing unfinished
-// conversation to our database for future use.
-app.intent("actions_intent_HALFWAY_CANCEL", (conv) => {
-  // TODO: Determine the type of data to store to our database.
-  // The following is just some half-baked code that doesn't do much...  
-  admin.firestore().collection("users")
-    .doc(conv.user._id)
-    .collection("logs")
-    .doc(conv.data.initiatedTime)
-    .set({
-      "state": "unfinished",
-      "conversation": "I don't know how to do this yet..."
-  })
-  conv.followup("initiated_halfway_cancel");
-})
-
-
 // This intent matches all of the positive emotions with high energy.
 // After the user provides an emotion, prompt the user to share his/her day.
 app.intent("Current Emotion Positive High", (conv, {emotion}) => {
   conv.data.userEmotion = String(emotion).toLowerCase();
-  conv.data.repromptCount = 0;
   const userName = conv.user.storage.userName;
   if (userName) {
     conv.ask(`How exciting, ${userName}! I would love to hear all about it. ` +
@@ -166,14 +130,6 @@ app.intent("Current Emotion Positive Low - yes", (conv) => {
 });
 
 
-// If the user chooses not to share his/her day, say goodbye and end the conversation.
-app.intent(["Current Emotion Positive High - no", "Current Emotion Positive Low - no"],
-  (conv) => {
-  conv.close("No worries. Just know that I'm rooting for you out there. " + 
-             "I can't wait to talk to you again soon. Bye!");
-});
-
-
 // This intent matches all of the negative emotions with high energy.
 // After the user provides an emotion, prompt the user to choose an option.
 app.intent("Current Emotion Negative High", (conv, {emotion}) => {
@@ -194,7 +150,12 @@ app.intent("Current Emotion Negative Low", (conv, {emotion}) => {
 });
 
 
-
+// If the user chooses not to share his/her day, say goodbye and end the conversation.
+app.intent(["Current Emotion Positive High - no", "Current Emotion Positive Low - no"],
+ (conv) => {
+  conv.close("No worries. Just know that I'm rooting for you out there. " + 
+             "I can't wait to talk to you again soon. Bye!");
+});
 
 
 // Normally, the "Default Fallback Intent" is only triggered when Dialogflow
