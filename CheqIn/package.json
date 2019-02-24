@@ -28,6 +28,7 @@
     "angularfire2": "^5.1.1",
     "core-js": "^2.5.4",
     "firebase": "^5.8.2",
+    "ionic-tags-input": "^0.1.2",
     "rxjs": "~6.3.3",
     "shortid": "^2.2.14",
     "zone.js": "~0.8.29"

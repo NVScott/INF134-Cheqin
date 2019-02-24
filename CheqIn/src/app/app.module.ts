@@ -16,12 +16,14 @@ import { firebaseConfig } from './credentials';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CheckInComponent } from './check-in/check-in.component';
+import {IonTag, IonTagsInputModule} from "ionic-tags-input";
 
 
 @NgModule({
   declarations: [AppComponent, CheckInComponent],
   entryComponents: [CheckInComponent],
   imports: [
+      IonTagsInputModule,
     BrowserModule,
     IonicModule.forRoot(),
     FormsModule,
