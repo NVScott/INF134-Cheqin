@@ -1,5 +1,10 @@
+$arrow-outside-color: #c8c8c8;
+$arrow-inside-color: #f8f8f8;
+$arrow-outside-showing-border: 8px solid transparent;
+$arrow-inside-showing-border: 7px solid transparent;
+
 img {
-  width:75%; /* you can use % */
+  width:100%; /* you can use % */
   height: auto;
 }
 
@@ -7,10 +12,31 @@ img {
   background-color: #ffffff;
 }
 
-.button-col {
-  padding-top: 20px;
-  padding-bottom: 20px;
+.box {
+  margin: auto;
+  background: white;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  font-weight: 900;
+  position:relative;
+  ;
+}
 
+
+.arrow:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #fff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  left: -17px;
 }
 
 

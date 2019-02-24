@@ -7,44 +7,23 @@
 </ion-header>
 
 <ion-content no-scroll>
-  <ion-grid no-padding>
+  <ion-grid>
     <ion-row>
-      <div class="back" no-padding text-center>
-        <img src="../../assets/mascot/brellacircle.png" alt="Smiling Umbrella">
-      </div>
+      <ion-col>
+        <div text-center>
+          <img src="../../assets/mascot/1.png" alt="Smiling Umbrella">
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="arrow box">
+          Would you like to check-in?
+          <ion-button (click)="presentModal()">YEET</ion-button>
+        </div>
+      </ion-col>
     </ion-row>
-    <div>
-      <ion-row class="button-col">
-        <ion-col>
-          <div text-center>
-            <ion-button size="large">
-              <ion-icon name="calendar"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div text-center>
-            <ion-button size="large">
-              <ion-icon name="stats"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="button-col">
-        <ion-col>
-          <div text-center>
-            <ion-button size="large">
-              <ion-icon name="contact"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div text-center>
-            <ion-button size="large">
-              <ion-icon name="settings"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-col>
+    <div class="back">
+      <ion-row>
+        Activity Log
       </ion-row>
     </div>
   </ion-grid>

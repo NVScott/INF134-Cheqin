@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
 import { UserData } from '../data/user-data';
 
+import { CheckInComponent } from "../check-in/check-in.component";
+import {ModalController} from "@ionic/angular";
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,9 +19,17 @@ export class HomePage implements OnInit {
 
   constructor(
     public firebaseService: FirebaseService,
+    public modalController: ModalController,
   ){}
 
   ngOnInit() {
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: CheckInComponent,
+    });
+    return await modal.present();
   }
 
   onSubmit() {

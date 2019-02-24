@@ -15,11 +15,12 @@ import { firebaseConfig } from './credentials';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CheckInComponent } from './check-in/check-in.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, CheckInComponent],
+  entryComponents: [CheckInComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
