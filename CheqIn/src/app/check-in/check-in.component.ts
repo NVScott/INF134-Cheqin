@@ -7,8 +7,14 @@ import {ModalController} from "@ionic/angular";
   styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit {
-  tags = ['butts'];
+  tags = [];
   entry = "";
+  color = "white";
+  colordesc =
+      {"red":"You feel angry, annoyed, frustrated, or irritated.",
+      "orange": "You feel anxious, nervous, or insecure.",
+      "yellow": "You feel energetic, hyper, or manic.",
+      "green": "You feel calm, refreshed, relaxed, or zen."};
 
   constructor(public modalController: ModalController) { }
 
@@ -21,6 +27,15 @@ export class CheckInComponent implements OnInit {
       val[i] = val[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
     }
     console.log(this.tags);
+  }
+
+  setMood(color) {
+    console.log("Setting mood!")
+    this.color = color;
+  }
+
+  Fart() {
+    console.log(this.color);
   }
 
   dismiss(){
