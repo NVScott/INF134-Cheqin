@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from "@ionic/angular";
+import * as wheelnav from "../../../node_modules/wheelnav";
+import * as raphael from "raphael";
 
 @Component({
   selector: 'app-check-in',
@@ -19,6 +21,9 @@ export class CheckInComponent implements OnInit {
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
+    var myWheelnav = wheelnav("divWheelnav");
+    myWheelnav.slicePathFunction = wheelnav.slicePath().WheelSlice;
+    myWheelnav.colors = wheelnav.colorpalette.parrot;
   }
 
   onChange(val){

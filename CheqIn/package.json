@@ -29,6 +29,7 @@
     "core-js": "^2.5.4",
     "firebase": "^5.8.2",
     "ionic-tags-input": "^0.1.2",
+    "raphael": "^2.2.7",
     "rxjs": "~6.3.3",
     "shortid": "^2.2.14",
     "wheelnav": "^1.7.1",
