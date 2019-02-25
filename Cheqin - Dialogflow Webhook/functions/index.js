@@ -66,6 +66,11 @@ const colorExplanations = {
 }
 
 
+
+// ----- BEGIN INTENT LOGIC ----- //
+
+
+
 // See if the user has stored a name for Cheqin to use.
 // If such name is stored, use it as part of the greeting.
 // If not, ask for permission using the "actions_intent_PERMISSION" intent
@@ -118,7 +123,6 @@ app.intent("actions_intent_PERMISSION", (conv, params, permissionGranted) => {
 });
 
 
-
 // This intent is matched when the user gives a response like "I need to talk to
 // you later" at anytime of the conversation. When matched, this intent makes the
 // agent gracefully say goodbye to the user while storing the existing unfinished
@@ -136,6 +140,11 @@ app.intent("actions_intent_HALFWAY_CANCEL", (conv) => {
   })
   conv.followup("initiated_halfway_cancel");
 })
+
+
+
+// ----- FROM THIS POINT ON, THE INITIAL GREETING IS FINISHED ----- // 
+
 
 
 // This intent matches all of the positive emotions with high energy.
@@ -186,7 +195,8 @@ app.intent("Current Emotion Positive Low - yes", (conv) => {
 });
 
 
-// These fallback intents are matched when the users gives something other than 
+// These fallback intents are matched when the users gives something other than
+// yes or no. 
 app.intent(["Current Emotion Positive High - fallback", 
             "Current Emotion Positive Low - fallback"], conv => {
   conv.data.repromptCount += 1;
@@ -210,7 +220,6 @@ app.intent(["Current Emotion Positive High - fallback",
 // conversation-specific data, and activate the "user_initiated_entry_logging" event.
 app.intent(["Current Emotion Positive High - yes - fallback", 
             "Current Emotion Positive Low - yes - fallback"], (conv) => {
-  //console.log(conv.query);
   conv.data.repromptCount = 0;
   conv.data.journalContent = conv.query;
   conv.followup("user_initiated_entry_logging");
@@ -249,31 +258,8 @@ app.intent("Current Emotion Negative Low", (conv, {emotion}) => {
 
 
 
+// ----- FROM THIS POINT ON, THE CONVERSATION IS AWARE OF THE USER EMOTION ----- //
 
-// DEPRECATED
-
-// Normally, the "Default Fallback Intent" is only triggered when Dialogflow
-// fails to extract any particular entity from the user's query.
-// However, I have designed this intent to also be triggered when the
-// user inputs the actual content for the journal entry or when adding tags, 
-// because the journal entry itself and the tags typically contains no useful 
-// information for Dialogflowo to extract.
-// This is made possible using the output context "UserInitiatesEntryLogging" 
-// and "UserChoosesToAddTags" from previous intents. 
-// When the user query contains this input context, add the followup event 
-// accordingly so that Dialogflow can redirect the user's query to the correct intent. 
-// For any other case, redirect to the actual fallback intent.
-app.intent("Default Fallback Intent", (conv) => {
-  if (conv.contexts.get("userinitiatesentrylogging")) {
-    conv.followup("user_initiated_entry_logging");
-  } else if (conv.contexts.get("userchoosestoaddtags")){
-    conv.followup("user_choosed_to_add_tags");
-  } else {
-    conv.followup("final_fallback");
-  }
-})
-
-// END DEPRECATED
 
 
 // This intent is triggered when Dialogflow senses an active event 
@@ -282,7 +268,6 @@ app.intent("Default Fallback Intent", (conv) => {
 // and asks the user whether a journal entry should be saved.
 app.intent("Initiate Potential Journal Entry", (conv) => {
   conv.data.repromptCount = 0;
-  //conv.data.journalEntry = conv.query;
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh") {
     conv.ask("Awesome job! I'm glad that you're having such a good day.");
@@ -292,6 +277,7 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
   conv.ask(" Before you go, do you want me to save this chat as a journal entry?");
   conv.ask(new Suggestions('Yes', 'No'));
 })
+
 
 // This intent is triggered when the user provides something that's unrelated to saving
 // the journal entry. The intent will be matched to at most three times
@@ -320,59 +306,12 @@ app.intent("Initiate Potential Journal Entry - no", (conv) => {
 // When the user finishes logging the journal entry but chooses to log it,
 // ask about the color for this log.
 app.intent("Initiate Potential Journal Entry - yes", (conv) => {
-  // const possibleColor = emotionColors[conv.data.userEmotion];
-  // conv.ask(`Great! Based on what you told me, I think that you might be feeling ` + 
-  //          `${possibleColor}. Is that correct?`);
-  // conv.ask(new Suggestions('Yes', 'No', `What's ${possibleColor}`));
   conv.followup("prompt_for_color");
 })
 
 
 
-
-
-
-
-
-// --- BEGIN DEPRECATED CODE ---
-
-// When the user confirms that the interpreted color is correct, store the color
-// and jump to the intent that prompts the user for tags using the 
-// "color_is_saved" event.
-app.intent("Initiate Potential Journal Entry - yes - yes", (conv) => {
-  conv.data.storedColor = emotionColors[conv.data.userEmotion];
-  conv.followup("color_is_saved");
-})
-
-
-// When the user says the interpreted color is incorrect, apologize and give
-// the user suggestions based on the broad emotion type.
-app.intent("Initiate Potential Journal Entry - yes - no", (conv) => {
-  conv.ask("Oh, whoops! Sorry, sometimes I still struggle with these human emotions. " +
-           "What color would you assign this entry?");
-  if (conv.data.emotionType = "positiveHigh") {
-    conv.ask(new Suggestions("Yellow", "Purple", "Pink"));
-  } else if (conv.data.emotionType = "positiveLow") {
-    conv.ask(new Suggestions("White", "Green"));
-  } else if (conv.data.emotion = "negativeHigh") {
-    conv.ask(new Suggestions("Orange", "Black", "White"));
-  } else if (conv.data.emotion = "negativeLow") {
-    conv.ask(new Suggestions("Gray", "Blue"));
-  }
-})
-
-
-// This intent is matched when the user says the intepreted color is incorrect
-// and proceeds to give the correct color
-app.intent("Initiate Potential Journal Entry - yes - no - custom", (conv, {color}) => {
-  conv.data.storedColor = String(color).toLowerCase();
-  conv.followup("color_is_saved");
-})
-
-// --- END DEPRECATED CODE --- 
-
-
-
+// ----- FROM THIS POINT ON, THE CONVERSATION STARTS HANDLING COLOR ----- //
 
 
 
@@ -485,6 +424,8 @@ app.intent("Prompt For Color - no - fallback", conv => {
 
 
 
+// ----- FROM THIS POINT ON, THE CONVERSATION STARTS HANDLING TAGS ----- //
+
 
 
 // Prompts the user to optionally add tags to a journal entry.
@@ -534,3 +475,7 @@ app.intent("Prompt for Tags - yes - fallback", (conv) => {
   //admin.firestore().collection("users").doc("123").set({"color": conv.data.storedColor});
   conv.followup("user_finished_conversation");
 })
+
+
+
+// ----- END CONVERSATION LOGIC ----- //
