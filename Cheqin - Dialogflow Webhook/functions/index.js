@@ -115,13 +115,20 @@ app.intent("Default Welcome Intent - fallback", conv => {
 app.intent("actions_intent_PERMISSION", (conv, params, permissionGranted) => {
   if (!permissionGranted) {
     conv.ask("Ok, no worries. How are you feeling right now?");
-    conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
   } else {
     conv.user.storage.userName = conv.user.name.display;
     conv.ask(`Thanks, ${conv.user.storage.userName}. How are you feeling right now?`);
-    conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
   }
+  conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
+
 });
+
+
+app.intent("actions_intent_CLEAR_DATA", conv => {
+  conv.user.storage = {};
+  conv.ask("Okay, I cleared your data. ");
+  conv.ask("You can store any new information in the next chat session.");
+})
 
 
 // This intent is matched when the user gives a response like "I need to talk to
