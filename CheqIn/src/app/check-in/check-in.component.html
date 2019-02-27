@@ -8,13 +8,37 @@
 
 <ion-content>
     <ion-list>
-        <ion-label position="stacked" padding>Tags</ion-label>
-        <ion-tags-input [(ngModel)]="tags" (onChange)=onChange($event) [color]="'random'" [once]="'true'" [separatorStr]="','"></ion-tags-input>
 
+        <!--Date Picker-->
+        <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime display-format="MMM D, YYYY" picker-format="MMMM D YYYY" [(ngModel)]="myDate"></ion-datetime>
+        </ion-item>
 
-            <ion-label position="stacked"padding>Entry</ion-label>
-            <ion-textarea rows=5 placeholder="Tell me how you're feeling! :)" [(ngModel)]="entry"></ion-textarea>
+        <!--Time Picker-->
+        <ion-item>
+            <ion-label>Time</ion-label>
+            <ion-datetime display-format="h:mm a" picker-format="h mm a" [(ngModel)]="myTime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Entry</ion-label>
+            <ion-textarea rows=5 placeholder="I'm giving presentation and I feel like its going very well! " [(ngModel)]="entry"></ion-textarea>
+        </ion-item>
+<ion-item>
+    <ion-label position="stacked" >Tags</ion-label>
+    <!--<ion-tags-input style=[(ngModel)]="tags" (onChange)=onChange($event) [color]="'random'" [once]="'true'" [separatorStr]="','">-->
+        <!---->
+    <!--</ion-tags-input>-->
+        <ion-chip>
+        <ion-label>Happy</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
 
+    <ion-chip>
+        <ion-label>Presentation</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
+</ion-item>
         <ion-grid>
 
             <div id="divWheelnav"></div>
