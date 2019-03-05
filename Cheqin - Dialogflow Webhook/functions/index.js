@@ -86,7 +86,7 @@ app.intent("Default Welcome Intent", (conv) => {
     }));
   } else {
     conv.ask(`Hi again, ${name}. How are you feeling right now?`);
-    conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
+    conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   }
 });
 
@@ -98,11 +98,11 @@ app.intent("Default Welcome Intent - fallback", conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
     conv.ask("Sorry, but I didn't get that. How are you feeling right now?");
-    conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
+    conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   } else if (conv.data.repromptCount === 2) {
     conv.ask("I'm really sorry, but do you mind telling me " +
-    "how are you feeling right now one more time?")
-    conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
+    "how are you feeling right now one more time?");
+    conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   } else if (conv.data.repromptCount === 3) {
     conv.followup("failed_fallback");
   }
@@ -185,7 +185,7 @@ app.intent("Current Emotion Positive Low", (conv, {emotion}) => {
   if (emotionColors[conv.data.userEmotion] === "white") {
     conv.ask("Oh, that's interesting. Would you like to talk about it?");
   } else {
-    conv.ask("Oh, that's great. I would love to hear more about it. " +
+    conv.ask("Oh, how interesting. I would love to hear more about it. " +
              "Care to share your day with me?");
   }
   conv.ask(new Suggestions('Yes', 'No'));
@@ -202,8 +202,8 @@ app.intent("Current Emotion Positive High - yes", (conv) => {
 
 app.intent("Current Emotion Positive Low - yes", (conv) => {
   conv.data.emotionType = "positiveLow";
-  conv.ask("Great! I will listen for as long as you need, " +
-           "and I promise I'm not checking my phone!");
+  conv.ask("Okay! Feel free to talk as long as you want, " +
+           "because I'm here for you.");
 });
 
 
@@ -243,7 +243,7 @@ app.intent("Current Emotion Negative High", (conv, {emotion}) => {
 
   conv.ask("If you want to vent, I would be happy to listen. I also have some " +
            "tips and tricks to help you calm down. What sounds best to you?");
-  conv.ask(new Suggestions('Vent', 'Listen', 'Tips'));
+  conv.ask(new Suggestions('Listen', 'Tips'));
 });
 
 
