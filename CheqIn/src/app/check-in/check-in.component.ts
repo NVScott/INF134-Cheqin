@@ -17,8 +17,10 @@ export class CheckInComponent implements OnInit {
       "orange": "You feel anxious, nervous, or insecure.",
       "yellow": "You feel energetic, hyper, or manic.",
       "green": "You feel calm, refreshed, relaxed, or zen."};
+    myDate: String = new Date().toISOString();
+    myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
-  constructor(public modalController: ModalController) { }
+    constructor(public modalController: ModalController) { }
 
   ngOnInit() {
     var myWheelnav = wheelnav("divWheelnav");
@@ -46,5 +48,6 @@ export class CheckInComponent implements OnInit {
   dismiss(){
     this.modalController.dismiss()
   }
+
 
 }
