@@ -37,7 +37,7 @@ export class CheckInComponent implements OnInit {
   }
 
   setMood(color) {
-    console.log("Setting mood!")
+    console.log("Setting mood!");
     this.color = color;
   }
 

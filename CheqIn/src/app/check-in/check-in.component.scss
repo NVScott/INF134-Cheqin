@@ -71,3 +71,7 @@
   --ion-color-shade: var(--ion-color-red-shade) !important;
   --ion-color-tint: var(--ion-color-red-tint) !important;
 }
+
+.color-select:focus {
+  border: 3px solid blue;
+}
