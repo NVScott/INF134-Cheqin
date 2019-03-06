@@ -38,7 +38,32 @@
         <ion-label>Presentation</ion-label>
         <ion-icon name="close-circle"></ion-icon>
     </ion-chip>
+
 </ion-item>
+
+    <ion-item>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-button color="pink"></ion-button>
+                    <ion-button color="red"></ion-button>
+                    <ion-button color="orange"></ion-button>
+                    <ion-button color="yellow"></ion-button>
+                    <ion-button color="green"></ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-button color="blue"></ion-button>
+                    <ion-button color="purple"></ion-button>
+                    <ion-button color="black"></ion-button>
+                    <ion-button color="grey"></ion-button>
+                    <ion-button color="white"></ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
         <ion-grid>
 
             <div id="divWheelnav"></div>
@@ -62,16 +87,22 @@
                         </map>
                     </div>-->
 
-                    <ion-item>
-                        <ion-label>Color</ion-label>
-                        <ion-select value="brown" okText="Okay" cancelText="Dismiss" [(ngModel)]="color">
-                            <ion-select-option value="red">Red</ion-select-option>
-                            <ion-select-option value="orange">Orange</ion-select-option>
-                            <ion-select-option value="yellow">Yellow</ion-select-option>
-                            <ion-select-option value="green">Green</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-
+                    <!--<ion-item>-->
+                        <!--<ion-label>Color</ion-label>-->
+                        <!--<ion-select value="brown" okText="Okay" cancelText="Dismiss" [(ngModel)]="color">-->
+                            <!--<ion-select-option value="red">Red</ion-select-option>-->
+                            <!--<ion-select-option value="orange">Orange</ion-select-option>-->
+                            <!--<ion-select-option value="yellow">Yellow</ion-select-option>-->
+                            <!--<ion-select-option value="green">Green</ion-select-option>-->
+                            <!--<ion-select-option value="white">White</ion-select-option>-->
+                            <!--<ion-select-option value="purple">Purple</ion-select-option>-->
+                            <!--<ion-select-option value="pink">Pink</ion-select-option>-->
+                            <!--<ion-select-option value="blue">Blue</ion-select-option>-->
+                            <!--<ion-select-option value="black">Black</ion-select-option>-->
+                            <!--<ion-select-option value="grey">Grey</ion-select-option>-->
+                            <!---->
+                        <!--</ion-select>-->
+                    <!--</ion-item>-->
                 </ion-col>
 
                 <ion-col no-padding>
@@ -85,7 +116,7 @@
                     </ion-button>
                 </ion-col>
                 <ion-col>
-                    <ion-button expand="block" (click)="Fart()">
+                    <ion-button expand="block" (click)="Fart()" [disabled]= "brown">
                         Save
                     </ion-button>
                 </ion-col>
