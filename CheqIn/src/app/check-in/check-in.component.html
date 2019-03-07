@@ -40,34 +40,34 @@
     </ion-chip>
 </ion-item>
 
-    <ion-item>
-        <ion-grid no-margin>
+        <ion-grid>
             <ion-row>
-                    <ion-col><ion-button size="large" expand= "block" color="pink" (click)= "setMood()" ></ion-button></ion-col>
-                    <ion-col><ion-button size="large" expand= "block" value="red" color="red"></ion-button></ion-col>
-                    <ion-col><ion-button size="large" expand= "block" color="orange"></ion-button></ion-col>
-                    <ion-col><ion-button size="large" expand= "block" color="yellow"></ion-button></ion-col>
-                    <ion-col><ion-button size="large" expand= "block" color="green"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="pink" (click)= "setMood('pink')" class="color-select"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="red" (click)= "setMood('red')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="orange" (click)= "setMood('orange')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="yellow" (click)= "setMood('yellow')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="green" (click)= "setMood('green')"></ion-button></ion-col>
             </ion-row>
 
             <ion-row>
-                <ion-col><ion-button size="large" expand= "block" color="blue"></ion-button></ion-col>
-                <ion-col><ion-button size="large" expand= "block" color="purple"></ion-button></ion-col>
-                <ion-col><ion-button size="large" expand= "block" color="black"></ion-button></ion-col>
-                <ion-col><ion-button size="large" expand= "block" color="grey"></ion-button></ion-col>
-                <ion-col><ion-button size="large" expand= "block" color="white"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="blue" (click)= "setMood('blue')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="purple" (click)= "setMood('purple')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="black" (click)= "setMood('black')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="grey" (click)= "setMood('grey')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="white" (click)= "setMood('white')"></ion-button></ion-col>
             </ion-row>
 
-            <ion-col no-padding>
-                <ion-card> Fart {{colordesc[color]}}</ion-card>
-            </ion-col>
+            <ion-row no-margin>
+                <ion-card>{{colordesc[color]}}</ion-card>
             </ion-row>
-            <ion-row>
+
+            <ion-row no-margin>
                 <ion-col>
                     <ion-button expand="block" (click)="dismiss()">
                         Cancel
                     </ion-button>
                 </ion-col>
+
                 <ion-col>
                     <ion-button expand="block" (click)="Fart()" [disabled]= "brown">
                         Save
@@ -75,6 +75,5 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-    </ion-item>
     </ion-list>
 </ion-content>
