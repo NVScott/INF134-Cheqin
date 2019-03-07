@@ -1,6 +1,8 @@
 // Written by Thomas Huang
 // Webhook functions that handle Cheqin's features and provide customized responses
 
+// To get surface capabilities: conv.surface["capabilities"]["list"]
+
 'use strict';
 
 // Import the Dialogflow module from the Actions on Google client library.
@@ -66,7 +68,6 @@ const colorExplanations = {
 }
 
 
-
 // ----- BEGIN INTENT LOGIC ----- //
 
 
@@ -81,13 +82,13 @@ app.intent("Default Welcome Intent", (conv) => {
   conv.data.journalContent = [];
 
   if (!name) {
-    createConvEntry("Hi there, to get to know you better, I'll just need to get your name from Google. Is that ok?", false)
+    conv.data.journalContent.push(createConvEntry("Hi there, to get to know you better, I'll just need to get your name from Google. Is that ok?", false))
     conv.ask(new Permission({
       context: "Hi there, to get to know you better",
       permissions: 'NAME',
     }));
   } else {
-    automatedAsk(conv,`Hi again, ${name}. How are you feeling right now?`);
+    automatedAsk(conv,`Hi again, ${name}. How are you feeling right now?`, false, false);
     conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   }
 });
@@ -357,14 +358,14 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
   conv.data.repromptCount = 0;
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh") {
-    automatedAsk(conv, "Awesome job! I'm glad that you're having such a good day. ");
+    automatedAsk(conv,"Awesome job! I'm glad that you're having such a good day. ", false, false);
   } else if (userEmotionType === "positiveLow") {
-    automatedAsk(conv, "Awesome! It sounds like you day has a lot of potential. ");
+    automatedAsk(conv,"Awesome! It sounds like you day has a lot of potential. ", false, false);
   } else if (userEmotionType === "negativeHigh" || userEmotionType === "negativeLow") {
-    automatedAsk(conv, "Awesome job! A lot of times, venting can be one of the best ways to " +
-    "relief anger and frustration. ");
+    automatedAsk(conv,"Awesome job! A lot of times, venting can be one of the best ways to " +
+    "relief anger and frustration. ", false, false);
   }
-  automatedAsk(conv, " Before you go, do you want me to save this chat as a journal entry?");
+  automatedAsk(conv," Before you go, do you want me to save this chat as a journal entry?", false, false);
   conv.ask(new Suggestions('Yes', 'No'));
 })
 
@@ -389,6 +390,7 @@ app.intent("Initiate Potential Journal Entry - fallback", conv => {
 // When the user finishes logging the journal entry but chooses to not log it,
 // end the conversation.
 app.intent("Initiate Potential Journal Entry - no", (conv) => {
+  conv.data.journalContent.push(createConvEntry(conv.query));
   conv.followup("user_finished_conversation");
 })
 
@@ -396,6 +398,7 @@ app.intent("Initiate Potential Journal Entry - no", (conv) => {
 // When the user finishes logging the journal entry but chooses to log it,
 // ask about the color for this log.
 app.intent("Initiate Potential Journal Entry - yes", (conv) => {
+  conv.data.journalContent.push(createConvEntry(conv.query));
   conv.followup("prompt_for_color");
 })
 
@@ -411,8 +414,8 @@ app.intent("Prompt For Color", conv => {
   conv.data.repromptCount = 0;
   conv.contexts.delete("InitiatePotentialJournalEntry-followup");
   const possibleColor = emotionColors[conv.data.userEmotion];
-  conv.ask(`Great! Based on what you told me, I think that you might be feeling ` + 
-           `${possibleColor}. Is that correct?`);
+  automatedAsk(conv, `Great! Based on what you told me, I think that you might be feeling ` +
+           `${possibleColor}. Is that correct?`, false, false);
   conv.ask(new Suggestions('Yes', 'No', `What's ${possibleColor}`));
 })
 
@@ -443,6 +446,7 @@ app.intent("Prompt For Color - yes", conv => {
   conv.data.repromptCount = 0;
   conv.data.storedColor = emotionColors[conv.data.userEmotion];
   conv.contexts.delete("PromptForColor-followup")
+  conv.data.journalContent.push(createConvEntry(conv.query));
   conv.followup("color_is_saved");
 })
 
@@ -480,6 +484,7 @@ app.intent("Prompt For Color - no", (conv) => {
 // and proceeds to give the correct color
 app.intent("Prompt For Color - no - custom", (conv, {color}) => {
   conv.data.storedColor = String(color).toLowerCase();
+  conv.data.journalContent.push(createConvEntry(conv.query));
   conv.followup("color_is_saved");
 })
 
@@ -520,8 +525,8 @@ app.intent("Prompt For Color - no - fallback", conv => {
 // Prompts the user to optionally add tags to a journal entry.
 app.intent("Prompt for Tags", (conv) => {
   conv.data.repromptCount = 0;
-  automatedAsk(conv,`Okay, the color ${conv.data.storedColor} has been saved! One last thing, ` +
-           `Do you have any tags to add to this entry?`);
+  automatedAsk(conv, `Okay, the color ${conv.data.storedColor} has been saved! One last thing, ` +
+           `Do you have any tags to add to this entry?`, false, false);
   conv.ask(new Suggestions('Yes', 'No'));
 })
 
@@ -545,6 +550,7 @@ app.intent("Prompt For Tags - fallback", conv => {
 
 // If the user chooses not to add tags, end the conversation.
 app.intent("Prompt for Tags - no", (conv) => {
+  conv.data.journalContent.push(createConvEntry(conv.query));
   conv.followup("user_finished_conversation");
 })
 
@@ -560,7 +566,7 @@ app.intent("Prompt for Tags - yes", (conv) => {
 // and end the conversation.
 app.intent("Prompt for Tags - yes - fallback", (conv) => {
   const tags = conv.query;
-
+  conv.data.journalContent.push(createConvEntry(conv.query));
   //admin.firestore().collection("users").doc("123").set({"color": conv.data.storedColor});
   conv.followup("user_finished_conversation");
 })
@@ -571,13 +577,12 @@ app.intent("Prompt for Tags - yes - fallback", (conv) => {
 // This intent is matched when the user wants to log something and finishes inputting
 // all the desired parameters.
 app.intent("End Conversation Normally", conv => {
-  console.log("OUR CONTENT: " + conv.data.journalContent)
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh" || userEmotionType === "positiveLow") {
-    automatedAsk(conv, "Okay! Well I'm glad that I was able to listen to you. Bye!", true);
+    automatedAsk(conv, "Okay! Well I'm glad that I was able to listen to you. Bye!", true, false);
   } else {
-    automatedAsk(conv,"Okay! Well I'm glad that I was able to listen to you, " +
-    "and I hope it helped, even just a little. Please log with me again soon. Bye!", true);
+    automatedAsk(conv, "Okay! Well I'm glad that I was able to listen to you, " +
+    "and I hope it helped, even just a little. Please log with me again soon. Bye!", true, false);
   }
   updateDatabase(conv)
 })
@@ -589,9 +594,11 @@ app.intent("End Conversation Normally", conv => {
 
 // This function will automatically save the response from the user, and then say a response. It will also automatically
 // close the conversation if the "close" flag is set to true
-function automatedAsk(conv, content, close = false)
+function automatedAsk(conv, content, close = false, needUserResp = true)
 {
-  conv.data.journalContent.push(createConvEntry(conv.query))
+  if (needUserResp){
+    conv.data.journalContent.push(createConvEntry(conv.query))
+  }
   conv.data.journalContent.push(createConvEntry(content, false))
   if(!close)
   {
@@ -612,14 +619,17 @@ function createConvEntry(content, fromUser = true)
 
 function updateDatabase(conv)
 {
-  let our_shit = {
-    "chatLog": conv.data.journalContent,
-    "color": conv.data.storedColor,
-    "journalEntry": conv.data.journalEntry,
-    "method": "I donno how to do this yet...",
-    "tags": []
-  }
-  console.log("HERE'S OUR SHIT: " + JSON.stringify(our_shit))
+    let method = "speaker";
+    let j = conv.surface["capabilities"]["list"];
+    for(let i = 0; i < j.length; i+=1)
+    {
+        if(j[i]["name"] === "actions.capability.SCREEN_OUTPUT")
+        {
+            method = "assistant-app";
+            break;
+        }
+
+    }
   admin.firestore().collection("users")
       .doc(conv.user._id)
       .collection("logs")
@@ -628,7 +638,7 @@ function updateDatabase(conv)
           "chatLog": conv.data.journalContent,
           "color": conv.data.storedColor,
           "journalEntry": conv.data.journalEntry,
-          "method": "I donno how to do this yet...",
+          "method": method,
           "tags": []
       })
 }
