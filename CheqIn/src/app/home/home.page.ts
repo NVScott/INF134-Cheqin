@@ -16,6 +16,12 @@ export class HomePage implements OnInit {
 
   userEmail = undefined;
   userPassword = undefined;
+  data = [{"entry":"My first journal post", "red":true, "blue":false}, 
+          {"entry":"My second journal post", "red":false, "blue":true},
+          {"entry":"My third journal post", "red":true, "blue":false}];
+
+  dates = [{"date":"01/01/19"}, {"date": "01/02/19"}, {"date":"01/03/19"}];
+
 
   constructor(
     public firebaseService: FirebaseService,

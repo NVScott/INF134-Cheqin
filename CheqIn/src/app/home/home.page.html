@@ -21,12 +21,27 @@
         </div>
       </ion-col>
     </ion-row>
-    <div class="back">
-      <ion-row>
-        Activity Log
-      </ion-row>
-    </div>
   </ion-grid>
+</ion-content>
+
+<ion-content>
+  <div class="activityLog">
+    <div text-center id="logTitle">
+        <ion-text >
+          ACTIVITY 
+        </ion-text>
+    </div>
+    <ion-card *ngFor="let item of dates" class="mainText">
+      <ion-card-header text-center>
+        {{item.date}}
+      </ion-card-header>
+        
+        <ion-item *ngFor="let d of data" [ngClass]="{'redText':d.red, 'blueText':d.blue}" >{{d.entry}}     </ion-item>
+        
+        <!-- nested ngFor loop first through date then through data above ^ -->
+      
+    </ion-card>
+  </div>
 </ion-content>
 
 
