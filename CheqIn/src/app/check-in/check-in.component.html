@@ -39,53 +39,37 @@
         <ion-icon name="close-circle"></ion-icon>
     </ion-chip>
 </ion-item>
+
         <ion-grid>
-
-            <div id="divWheelnav"></div>
-
-            <ion-row no-padding>
-                <ion-col col-12>
-                    <!--Non-functioning Image Map :(
-                    <div>
-                        <img src="../../assets/brellacircle-bg.png" usemap="#colorIndex">
-                        <map name="colorIndex">
-                            <area alt="Red" class="Red" href="" coords="780,45,1436,43,1194,793,1022,793" shape="poly" onclick="setMood('red')">
-                            <area alt="Orange" class="Orange" href="" coords="1436,45,1194,795,1331,895,1976,430" shape="poly">
-                            <area alt="Yellow" class="Yellow" href="" coords="1972,436,1329,897,1382,1053,2171,1049" shape="poly">
-                            <area alt="Green" class="Green" href="" coords="2171,1051,1383,1055,1329,1221,1968,1682" shape="poly">
-                            <area alt="Blue" title="Blue" href="" coords="1968,1682,1329,1221,1190,1319,1436,2065" shape="poly">
-                            <area alt="Purple" title="Purple" href="" coords="1436,2065,776,2065,1020,1323,1192,1319" shape="poly">
-                            <area alt="Pink" title="Pink" href="" coords="1020,1321,778,2065,242,1674,877,1215" shape="poly">
-                            <area alt="Gray" title="Gray" href="" coords="877,1213,244,1674,37,1049,827,1049" shape="poly">
-                            <area alt="Black" title="Black" href="" coords="39,1049,242,428,885,893,827,1049" shape="poly">
-                            <area alt="White" title="White" href="" coords="246,430,780,43,1022,791,885,891" shape="poly">
-                        </map>
-                    </div>-->
-
-                    <ion-item>
-                        <ion-label>Color</ion-label>
-                        <ion-select value="brown" okText="Okay" cancelText="Dismiss" [(ngModel)]="color">
-                            <ion-select-option value="red">Red</ion-select-option>
-                            <ion-select-option value="orange">Orange</ion-select-option>
-                            <ion-select-option value="yellow">Yellow</ion-select-option>
-                            <ion-select-option value="green">Green</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-
-                </ion-col>
-
-                <ion-col no-padding>
-                    <ion-card>{{colordesc[color]}}</ion-card>
-                </ion-col>
-            </ion-row>
             <ion-row>
+                <ion-col><ion-button size="large" expand= "block" color="pink" (click)= "setMood('pink')" class="color-select"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="red" (click)= "setMood('red')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="orange" (click)= "setMood('orange')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="yellow" (click)= "setMood('yellow')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="green" (click)= "setMood('green')"></ion-button></ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col><ion-button size="large" expand= "block" color="blue" (click)= "setMood('blue')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="purple" (click)= "setMood('purple')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="black" (click)= "setMood('black')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="grey" (click)= "setMood('grey')"></ion-button></ion-col>
+                <ion-col><ion-button size="large" expand= "block" color="white" (click)= "setMood('white')"></ion-button></ion-col>
+            </ion-row>
+
+            <ion-row no-margin>
+                <ion-card>{{colordesc[color]}}</ion-card>
+            </ion-row>
+
+            <ion-row no-margin>
                 <ion-col>
                     <ion-button expand="block" (click)="dismiss()">
                         Cancel
                     </ion-button>
                 </ion-col>
+
                 <ion-col>
-                    <ion-button expand="block" (click)="Fart()">
+                    <ion-button expand="block" (click)="Fart()" [disabled]= "brown">
                         Save
                     </ion-button>
                 </ion-col>
