@@ -78,14 +78,16 @@ app.intent("Default Welcome Intent", (conv) => {
   const name = conv.user.storage.userName;
   conv.data.initiatedTime = String(Date.now());
   conv.data.repromptCount = 0;
+  conv.data.journalContent = [];
 
   if (!name) {
+    createConvEntry("Hi there, to get to know you better, I'll just need to get your name from Google. Is that ok?", false)
     conv.ask(new Permission({
       context: "Hi there, to get to know you better",
       permissions: 'NAME',
     }));
   } else {
-    conv.ask(`Hi again, ${name}. How are you feeling right now?`);
+    automatedAsk(conv,`Hi again, ${name}. How are you feeling right now?`);
     conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   }
 });
@@ -97,10 +99,10 @@ app.intent("Default Welcome Intent", (conv) => {
 app.intent("Default Welcome Intent - fallback", conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
-    conv.ask("Sorry, but I didn't get that. How are you feeling right now?");
+    automatedAsk(conv,"Sorry, but I didn't get that. How are you feeling right now?");
     conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   } else if (conv.data.repromptCount === 2) {
-    conv.ask("I'm really sorry, but do you mind telling me " +
+    automatedAsk(conv, "I'm really sorry, but do you mind telling me " +
     "how are you feeling right now one more time?");
     conv.ask(new Suggestions('Happy', 'Excited', 'Calm', 'Anxious', 'Sad', 'Angry', 'Stressed', 'Tired'));
   } else if (conv.data.repromptCount === 3) {
@@ -114,10 +116,10 @@ app.intent("Default Welcome Intent - fallback", conv => {
 // If not, continue anyways and use a neutral greeting.
 app.intent("actions_intent_PERMISSION", (conv, params, permissionGranted) => {
   if (!permissionGranted) {
-    conv.ask("Ok, no worries. How are you feeling right now?");
+    automatedAsk(conv,"Ok, no worries. How are you feeling right now?");
   } else {
     conv.user.storage.userName = conv.user.name.display;
-    conv.ask(`Thanks, ${conv.user.storage.userName}. How are you feeling right now?`);
+    automatedAsk(conv,`Thanks, ${conv.user.storage.userName}. How are you feeling right now?`);
   }
   conv.ask(new Suggestions('Happy', 'Excited', 'Calm'));
 
@@ -126,8 +128,7 @@ app.intent("actions_intent_PERMISSION", (conv, params, permissionGranted) => {
 
 app.intent("actions_intent_CLEAR_DATA", conv => {
   conv.user.storage = {};
-  conv.ask("Okay, I cleared your data. ");
-  conv.ask("You can store any new information in the next chat session.");
+  automatedAsk(conv,"Okay, I cleared your data. You can store any new information in the next chat session.");
 })
 
 
@@ -164,10 +165,10 @@ app.intent("Current Emotion Positive High", (conv, {emotion}) => {
 
   const userName = conv.user.storage.userName;
   if (userName) {
-    conv.ask(`How exciting, ${userName}! I would love to hear all about it. ` +
+    automatedAsk(conv,`How exciting, ${userName}! I would love to hear all about it. ` +
              `Care to share your day with me?`);
   } else {
-    conv.ask("How exciting! I would love to hear all about it. " + 
+    automatedAsk(conv,"How exciting! I would love to hear all about it. " +
              "Care to share your day with me?");
   }
   conv.ask(new Suggestions('Yes', 'No'));
@@ -183,9 +184,9 @@ app.intent("Current Emotion Positive Low", (conv, {emotion}) => {
   conv.contexts.delete("DefaultWelcomeIntent-followup");
 
   if (emotionColors[conv.data.userEmotion] === "white") {
-    conv.ask("Oh, that's interesting. Would you like to talk about it?");
+    automatedAsk(conv,"Oh, that's interesting. Would you like to talk about it?");
   } else {
-    conv.ask("Oh, how interesting. I would love to hear more about it. " +
+    automatedAsk(conv,"Oh, how interesting. I would love to hear more about it. " +
              "Care to share your day with me?");
   }
   conv.ask(new Suggestions('Yes', 'No'));
@@ -196,13 +197,13 @@ app.intent("Current Emotion Positive Low", (conv, {emotion}) => {
 // for a potential journal entry.
 app.intent("Current Emotion Positive High - yes", (conv) => {
   conv.data.emotionType = "positiveHigh";
-  conv.ask("Great! I will listen for as long as you need, " +
+  automatedAsk(conv,"Great! I will listen for as long as you need, " +
            "and I promise I'm not checking my phone!");
 });
 
 app.intent("Current Emotion Positive Low - yes", (conv) => {
   conv.data.emotionType = "positiveLow";
-  conv.ask("Okay! Feel free to talk as long as you want, " +
+  automatedAsk(conv,"Okay! Feel free to talk as long as you want, " +
            "because I'm here for you.");
 });
 
@@ -213,11 +214,11 @@ app.intent(["Current Emotion Positive High - fallback",
             "Current Emotion Positive Low - fallback"], conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
-    conv.ask("Sorry, but I didn't get that. " +
+    automatedAsk(conv,"Sorry, but I didn't get that. " +
     "Would you like to share your day with me?");
     conv.ask(new Suggestions('Yes', 'No'))
   } else if (conv.data.repromptCount === 2) {
-    conv.ask("I must have misheard something. " +
+    automatedAsk(conv,"I must have misheard something. " +
     "Do you want to share your day with me?");
     conv.ask(new Suggestions('Yes', 'No'))
   } else if (conv.data.repromptCount === 3) {
@@ -229,8 +230,9 @@ app.intent(["Current Emotion Positive High - fallback",
 // If the user chooses not to share his/her day, say goodbye and end the conversation.
 app.intent(["Current Emotion Positive High - no", "Current Emotion Positive Low - no"],
   conv => {
-  conv.close("No worries. Just know that I'm rooting for you out there. " + 
-             "I can't wait to talk to you again soon. Bye!");
+  automatedAsk(conv,"No worries. Just know that I'm rooting for you out there. " +
+             "I can't wait to talk to you again soon. Bye!", true);
+  updateDatabase(conv)
 });
 
 
@@ -241,7 +243,7 @@ app.intent("Current Emotion Negative High", (conv, {emotion}) => {
   conv.data.repromptCount = 0;
   conv.contexts.delete("DefaultWelcomeIntent-followup");
 
-  conv.ask("If you want to vent, I would be happy to listen. I also have some " +
+  automatedAsk(conv,"If you want to vent, I would be happy to listen. I also have some " +
            "tips and tricks to help you calm down. What sounds best to you?");
   conv.ask(new Suggestions('Listen', 'Tips'));
 });
@@ -252,12 +254,12 @@ app.intent("Current Emotion Negative High", (conv, {emotion}) => {
 app.intent("Current Emotion Negative High - fallback", conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
-    conv.ask("Sorry, but I didn't get that. " +
+    automatedAsk(conv,"Sorry, but I didn't get that. " +
     "I would be happy to listen, and I also have some tips to help. " +
     "Which one do you prefer?");
     conv.ask(new Suggestions('Listen', 'Tips'));
   } else if (conv.data.repromptCount === 2) {
-    conv.ask("I must have misheard something. " +
+    automatedAsk(conv,"I must have misheard something. " +
     "I can either listen to you or provide some tips. " +
     "Which one do you like better?");
     conv.ask(new Suggestions('Listen', 'Tips'));
@@ -274,7 +276,7 @@ app.intent("Current Emotion Negative Low", (conv, {emotion}) => {
   conv.data.repromptCount = 0;
   conv.contexts.delete("DefaultWelcomeIntent-followup");
 
-  conv.ask("I am here for you. I would be happy to listen, or I have some " +
+  automatedAsk(conv,"I am here for you. I would be happy to listen, or I have some " +
            "techniques to help you lift your spirits. What sounds best to you?");
   conv.ask(new Suggestions('Vent', 'Listen', 'Tips'));
 });
@@ -285,12 +287,12 @@ app.intent("Current Emotion Negative Low", (conv, {emotion}) => {
 app.intent("Current Emotion Negative Low - fallback", conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
-    conv.ask("Sorry, but I didn't get that. " +
+    automatedAsk(conv,"Sorry, but I didn't get that. " +
     "I would be happy to listen, and I also have some techniques to help you " +
     "lift your spirit. Which one do you prefer?");
     conv.ask(new Suggestions('Listen', 'Techniques'));
   } else if (conv.data.repromptCount === 2) {
-    conv.ask("I must have misheard something. " +
+    automatedAsk(conv,"I must have misheard something. " +
     "I can either listen to you or provide some techniques. " +
     "Which one do you like better?");
     conv.ask(new Suggestions('Listen', 'Techniques'));
@@ -306,7 +308,7 @@ app.intent("Current Emotion Negative High - listen", (conv) => {
   conv.data.emotionType = "negativeHigh";
   conv.data.repromptCount = 0;
   conv.contexts.delete("CurrentEmotionNegativeHigh-followup"); 
-  conv.ask("Great! I will listen for as long as you need, " +
+  automatedAsk(conv, "Great! I will listen for as long as you need, " +
            "and I promise I'm not checking my phone!");
 });
 
@@ -314,7 +316,7 @@ app.intent("Current Emotion Negative Low - listen", (conv) => {
   conv.data.emotionType = "negativeLow";
   conv.data.repromptCount = 0;
   conv.contexts.delete("CurrentEmotionNegativeLow-followup");
-  conv.ask("Great! I will listen for as long as you need, " +
+  automatedAsk(conv, "Great! I will listen for as long as you need, " +
            "and I promise I'm not checking my phone!");
 });
 
@@ -322,7 +324,7 @@ app.intent("Current Emotion Negative Low - listen", (conv) => {
 // TODO: Figure out what's gonna happen here...
 app.intent(["Current Emotion Negative High - help",
             "Current Emotion Negative Low - help"], conv => {
-  conv.close("This feature is currently not supported. I gotta go...");
+  automatedAsk(conv, "This feature is currently not supported. I gotta go...", true);
 });
 
 
@@ -335,7 +337,8 @@ app.intent(["Current Emotion Positive High - yes - fallback",
             "Current Emotion Negative High - listen - fallback",
             "Current Emotion Negative Low - listen - fallback"], (conv) => {
   conv.data.repromptCount = 0;
-  conv.data.journalContent = conv.query;
+  conv.data.journalEntry = conv.query;
+  conv.data.journalContent.push(createConvEntry(conv.query));
   conv.followup("user_initiated_entry_logging");
 });
 
@@ -354,14 +357,14 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
   conv.data.repromptCount = 0;
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh") {
-    conv.ask("Awesome job! I'm glad that you're having such a good day. ");
+    automatedAsk(conv, "Awesome job! I'm glad that you're having such a good day. ");
   } else if (userEmotionType === "positiveLow") {
-    conv.ask("Awesome! It sounds like you day has a lot of potential. ");
+    automatedAsk(conv, "Awesome! It sounds like you day has a lot of potential. ");
   } else if (userEmotionType === "negativeHigh" || userEmotionType === "negativeLow") {
-    conv.ask("Awesome job! A lot of times, venting can be one of the best ways to " +
+    automatedAsk(conv, "Awesome job! A lot of times, venting can be one of the best ways to " +
     "relief anger and frustration. ");
   }
-  conv.ask(" Before you go, do you want me to save this chat as a journal entry?");
+  automatedAsk(conv, " Before you go, do you want me to save this chat as a journal entry?");
   conv.ask(new Suggestions('Yes', 'No'));
 })
 
@@ -372,10 +375,10 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
 app.intent("Initiate Potential Journal Entry - fallback", conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
-    conv.ask("I didn't get that. Want me to save this chat as a journal entry?");
+    automatedAsk(conv, "I didn't get that. Want me to save this chat as a journal entry?");
     conv.ask(new Suggestions('Yes', 'No'));
   } else if (conv.data.repromptCount === 2) {
-    conv.ask("I'm really sorry, but do you want to save this chat as a journal entry?")
+    automatedAsk(conv, "I'm really sorry, but do you want to save this chat as a journal entry?")
     conv.ask(new Suggestions('Yes', 'No'));
   } else if (conv.data.repromptCount === 3) {
     conv.followup("failed_fallback");
@@ -421,10 +424,10 @@ app.intent("Prompt For Color - fallback", conv => {
   conv.data.repromptCount += 1;
   const possibleColor = emotionColors[conv.data.userEmotion];
   if (conv.data.repromptCount === 1) {
-    conv.ask(`I didn't get that. Do you think you are feeling ${possibleColor}?`);
+    automatedAsk(conv,`I didn't get that. Do you think you are feeling ${possibleColor}?`);
     conv.ask(new Suggestions('Yes', 'No', `What's ${possibleColor}`));
   } else if (conv.data.repromptCount === 2) {
-    conv.ask(`I'm really sorry. I think you are feeling ${possibleColor}` + 
+    automatedAsk(conv,`I'm really sorry. I think you are feeling ${possibleColor}` +
     "Is that correct?");
     conv.ask(new Suggestions('Yes', 'No', `What's ${possibleColor}`));
   } else if (conv.data.repromptCount === 3) {
@@ -448,9 +451,8 @@ app.intent("Prompt For Color - yes", conv => {
 app.intent("Prompt For Color - color clarification", conv => {
   conv.data.repromptCount = 0;
   const possibleColor = emotionColors[conv.data.userEmotion];
-  conv.ask(`${possibleColor} means that you might be feeling ` + 
-  `${colorExplanations[possibleColor]}. `);
-  conv.ask("Is this color correct?");
+  automatedAsk(`${possibleColor} means that you might be feeling ` +
+  `${colorExplanations[possibleColor]}. Is this color correct?`);
   conv.ask(new Suggestions('Yes', 'No'));
 })
 
@@ -460,7 +462,7 @@ app.intent("Prompt For Color - color clarification", conv => {
 app.intent("Prompt For Color - no", (conv) => {
   conv.data.repromptCount = 0;
   conv.contexts.delete("PromptForColor-followup");
-  conv.ask("Oh, whoops! Sorry, sometimes I still struggle with these human emotions. " +
+  automatedAsk(conv,"Oh, whoops! Sorry, sometimes I still struggle with these human emotions. " +
            "What color would you assign this entry?");
   if (conv.data.emotionType = "positiveHigh") {
     conv.ask(new Suggestions("Yellow", "Purple", "Pink"));
@@ -492,11 +494,11 @@ app.intent("Prompt For Color - no - fallback", conv => {
     return;
   } else {
     if (conv.data.repromptCount === 1) {
-      conv.ask("I didn't get that. ");
+      automatedAsk(conv,"I didn't get that. ");
     } else if (conv.data.repromptCount === 2) {
-      conv.ask("I'm really sorry, but I missed that. ");
+      automatedAsk(conv,"I'm really sorry, but I missed that. ");
     }
-    conv.ask("What color would you assign this entry?");
+    automatedAsk(conv, "What color would you assign this entry?");
     if (conv.data.emotionType = "positiveHigh") {
       conv.ask(new Suggestions("Yellow", "Purple", "Pink"));
     } else if (conv.data.emotionType = "positiveLow") {
@@ -518,7 +520,7 @@ app.intent("Prompt For Color - no - fallback", conv => {
 // Prompts the user to optionally add tags to a journal entry.
 app.intent("Prompt for Tags", (conv) => {
   conv.data.repromptCount = 0;
-  conv.ask(`Okay, the color ${conv.data.storedColor} has been saved! One last thing, ` + 
+  automatedAsk(conv,`Okay, the color ${conv.data.storedColor} has been saved! One last thing, ` +
            `Do you have any tags to add to this entry?`);
   conv.ask(new Suggestions('Yes', 'No'));
 })
@@ -530,10 +532,10 @@ app.intent("Prompt for Tags", (conv) => {
 app.intent("Prompt For Tags - fallback", conv => {
   conv.data.repromptCount += 1;
   if (conv.data.repromptCount === 1) {
-    conv.ask("I didn't get that. Do you have any tags to add this entry?");
+    automatedAsk(conv,"I didn't get that. Do you have any tags to add this entry?");
     conv.ask(new Suggestions('Yes', 'No'));
   } else if (conv.data.repromptCount === 2) {
-    conv.ask("Sorry, I missed it. Would you like to add ant tags to this entry?");
+    automatedAsk(conv,"Sorry, I missed it. Would you like to add ant tags to this entry?");
     conv.ask(new Suggestions('Yes', 'No'));
   } else if (conv.data.repromptCount === 3) {
     conv.followup("failed_fallback");
@@ -549,7 +551,7 @@ app.intent("Prompt for Tags - no", (conv) => {
 
 // If the user chooses to add tags, prompt the user to list all the desired tags.
 app.intent("Prompt for Tags - yes", (conv) => {
-  conv.ask("Okay! Please list any tags you want.");
+  automatedAsk(conv,"Okay! Please list any tags you want.");
 })
 
 
@@ -569,15 +571,64 @@ app.intent("Prompt for Tags - yes - fallback", (conv) => {
 // This intent is matched when the user wants to log something and finishes inputting
 // all the desired parameters.
 app.intent("End Conversation Normally", conv => {
+  console.log("OUR CONTENT: " + conv.data.journalContent)
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh" || userEmotionType === "positiveLow") {
-    conv.close("Okay! Well I'm glad that I was able to listen to you. Bye!");
+    automatedAsk(conv, "Okay! Well I'm glad that I was able to listen to you. Bye!", true);
   } else {
-    conv.close("Okay! Well I'm glad that I was able to listen to you, " + 
-    "and I hope it helped, even just a little. Please log with me again soon. Bye!");
+    automatedAsk(conv,"Okay! Well I'm glad that I was able to listen to you, " +
+    "and I hope it helped, even just a little. Please log with me again soon. Bye!", true);
   }
+  updateDatabase(conv)
 })
 
 
 
 // ----- END CONVERSATION LOGIC ----- //
+// ----- START HELPER FUNCTIONS ----- //
+
+// This function will automatically save the response from the user, and then say a response. It will also automatically
+// close the conversation if the "close" flag is set to true
+function automatedAsk(conv, content, close = false)
+{
+  conv.data.journalContent.push(createConvEntry(conv.query))
+  conv.data.journalContent.push(createConvEntry(content, false))
+  if(!close)
+  {
+    conv.ask(content)
+  } else {
+    conv.close(content)
+  }
+}
+
+function createConvEntry(content, fromUser = true)
+{
+  return {
+    "content":  content,
+    "fromUser":fromUser,
+    "timestamp":new Date()
+  }
+}
+
+function updateDatabase(conv)
+{
+  let our_shit = {
+    "chatLog": conv.data.journalContent,
+    "color": conv.data.storedColor,
+    "journalEntry": conv.data.journalEntry,
+    "method": "I donno how to do this yet...",
+    "tags": []
+  }
+  console.log("HERE'S OUR SHIT: " + JSON.stringify(our_shit))
+  admin.firestore().collection("users")
+      .doc(conv.user._id)
+      .collection("logs")
+      .doc(conv.data.initiatedTime)
+      .set({
+          "chatLog": conv.data.journalContent,
+          "color": conv.data.storedColor,
+          "journalEntry": conv.data.journalEntry,
+          "method": "I donno how to do this yet...",
+          "tags": []
+      })
+}
