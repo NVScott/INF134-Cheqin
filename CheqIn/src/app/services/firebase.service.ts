@@ -10,7 +10,7 @@ export class FirebaseService {
 	collection:AngularFirestoreCollection;
 
   constructor(public db:AngularFirestore) {
-  	this.collection = db.collection('cheqin-1f59e');
+  	this.collection = db.collection('users');
   }
 
   addUserData(userData:UserData) {
@@ -19,6 +19,12 @@ export class FirebaseService {
       console.log(reference);
     })
   }
+
+  addEntry() {
+      this.collection.doc("ABwppHGjzNZfhjmK2ZtvJoPkUXI-nPKZYN7q_Dw_v5eGg2rORLMMzU8XpUfLVuvRKNqTvafMcu3N_gnT").collection("logs")
+          .doc("test").set({"testKey": "testValue"});
+  }
+
 
   getUserData():Observable<DocumentData[]>{
   	//TODO: implement this function to retrieve sleep logs
