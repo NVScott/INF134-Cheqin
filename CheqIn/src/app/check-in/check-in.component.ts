@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from "@ionic/angular";
+import {FirebaseService} from "../services/firebase.service";
 import * as wheelnav from "../../../node_modules/wheelnav";
 import * as raphael from "raphael";
 
@@ -11,21 +12,25 @@ import * as raphael from "raphael";
 export class CheckInComponent implements OnInit {
   tags = [];
   entry = "";
-  color = "white";
+  color = "brown";
   colordesc =
-      {"red":"You feel angry, annoyed, frustrated, or irritated.",
-      "orange": "You feel anxious, nervous, or insecure.",
-      "yellow": "You feel energetic, hyper, or manic.",
-      "green": "You feel calm, refreshed, relaxed, or zen."};
+      {"pink": "You feel happy, excited, overjoyed, or silly.",
+        "red":"You feel angry, annoyed, frustrated, or irritated.",
+        "orange": "You feel anxious, nervous, or insecure.",
+        "yellow": "You feel energetic, hyper, or manic.",
+        "green": "You feel calm, refreshed, relaxed, or zen.",
+        "blue": "You feel depressed, sad, emotional, gloomy, or weepy.",
+        "purple": "You feel active, focused, motivated, or productive",
+        "black": "You feel stressed.",
+        "grey": "You feel exhausted, fatigued, tired, lethargic, sleepy, or lazy.",
+        "white": "You feel normal, neutral, or uneventful." };
     myDate: String = new Date().toISOString();
     myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
-    constructor(public modalController: ModalController) { }
+    constructor(public modalController: ModalController, public firebaseService: FirebaseService) { }
 
   ngOnInit() {
-    var myWheelnav = wheelnav("divWheelnav");
-    myWheelnav.slicePathFunction = wheelnav.slicePath().WheelSlice;
-    myWheelnav.colors = wheelnav.colorpalette.parrot;
+
   }
 
   onChange(val){
@@ -37,12 +42,13 @@ export class CheckInComponent implements OnInit {
   }
 
   setMood(color) {
-    console.log("Setting mood!")
-    this.color = color;
+      this.color = color;
+    console.log("Setting mood! your color is " + this.color);
   }
 
-  Fart() {
-    console.log(this.color);
+  submitCheckin(myTime, myDate, entry, color,tags) {
+        this.firebaseService.addEntry(myTime, myDate, entry, color, tags);
+        console.log("Submitting Checkin");
   }
 
   dismiss(){
