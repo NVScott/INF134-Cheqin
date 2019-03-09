@@ -20,12 +20,14 @@
             <ion-label>Time</ion-label>
             <ion-datetime display-format="h:mm a" picker-format="h mm a" [(ngModel)]="myTime"></ion-datetime>
         </ion-item>
+
+        <!--Entry-->
         <ion-item>
             <ion-label position="stacked">Entry</ion-label>
             <ion-textarea rows=5 placeholder="I'm giving presentation and I feel like its going very well! " [(ngModel)]="entry"></ion-textarea>
         </ion-item>
 <ion-item>
-    <ion-label position="stacked" >Tags</ion-label>
+    <ion-label position="stacked">Tags</ion-label>
     <!--<ion-tags-input style=[(ngModel)]="tags" (onChange)=onChange($event) [color]="'random'" [once]="'true'" [separatorStr]="','">-->
         <!---->
     <!--</ion-tags-input>-->
@@ -62,14 +64,15 @@
             </ion-row>
 
             <ion-row no-margin>
+                <!--Cancel Button-->
                 <ion-col>
                     <ion-button expand="block" (click)="dismiss()">
                         Cancel
                     </ion-button>
                 </ion-col>
-
+                <!--Save Button-->
                 <ion-col>
-                    <ion-button expand="block" (click)="Fart()" [disabled]= "brown">
+                    <ion-button expand="block" (click)="submitCheckin(myDate, myTime, entry, color, tags)" [disabled]= "brown">
                         Save
                     </ion-button>
                 </ion-col>

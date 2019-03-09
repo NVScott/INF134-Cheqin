@@ -26,9 +26,7 @@ export class HomePage implements OnInit {
   }
 
   async presentModal() {
-    const modal = await this.modalController.create({
-      component: CheckInComponent,
-    });
+    const modal = await this.modalController.create({component: CheckInComponent});
     return await modal.present();
   }
 

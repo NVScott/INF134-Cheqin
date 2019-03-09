@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from "@ionic/angular";
+import {FirebaseService} from "../services/firebase.service";
 import * as wheelnav from "../../../node_modules/wheelnav";
 import * as raphael from "raphael";
 
@@ -26,12 +27,10 @@ export class CheckInComponent implements OnInit {
     myDate: String = new Date().toISOString();
     myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
-    constructor(public modalController: ModalController) { }
+    constructor(public modalController: ModalController, public firebaseService: FirebaseService) { }
 
   ngOnInit() {
-    var myWheelnav = wheelnav("divWheelnav");
-    myWheelnav.slicePathFunction = wheelnav.slicePath().WheelSlice;
-    myWheelnav.colors = wheelnav.colorpalette.parrot;
+
   }
 
   onChange(val){
@@ -47,8 +46,9 @@ export class CheckInComponent implements OnInit {
     console.log("Setting mood! your color is " + this.color);
   }
 
-  Fart() {
-    console.log(this.color);
+  submitCheckin(myTime, myDate, entry, color,tags) {
+        this.firebaseService.addEntry(myTime, myDate, entry, color, tags);
+        console.log("Submitting Checkin");
   }
 
   dismiss(){
