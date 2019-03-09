@@ -7,6 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FirebaseService {
+    tags = [];
+    entry = "";
+    color = "brown";
+    myDate: String = new Date().toISOString();
+    myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 	collection:AngularFirestoreCollection;
 
   constructor(public db:AngularFirestore) {
@@ -20,9 +25,16 @@ export class FirebaseService {
     })
   }
 
-  addEntry() {
+  addEntry(myDate, myTime, entry, color, tags) {
       this.collection.doc("ABwppHGjzNZfhjmK2ZtvJoPkUXI-nPKZYN7q_Dw_v5eGg2rORLMMzU8XpUfLVuvRKNqTvafMcu3N_gnT").collection("logs")
-          .doc("test").set({"testKey": "testValue"});
+          .doc(String(Date.now())).set({
+          "chatLog": [],
+          "color": color,
+          "content": entry,
+          "fromUser": true,
+          "tags": [],
+          "timestamp": myTime
+      });
   }
 
 

@@ -46,8 +46,8 @@ export class CheckInComponent implements OnInit {
     console.log("Setting mood! your color is " + this.color);
   }
 
-  submitCheckin(myDate, myTime, entry, color, tags) {
-        this.firebaseService.addEntry();
+  submitCheckin(myTime, myDate, entry, color,tags) {
+        this.firebaseService.addEntry(myTime, myDate, entry, color, tags);
         console.log("Submitting Checkin");
   }
 

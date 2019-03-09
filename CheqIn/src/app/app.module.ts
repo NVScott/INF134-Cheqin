@@ -12,6 +12,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './services/auth.service';
 import { firebaseConfig } from './credentials';
+import { environment } from "../environments/environment";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,8 +30,8 @@ import {IonTag, IonTagsInputModule} from "ionic-tags-input";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFireModule.initializeApp(environment.firebase, 'cheqin'),
+    AngularFirestoreModule,
   ],
   providers: [
     StatusBar,
