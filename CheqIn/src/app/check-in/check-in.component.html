@@ -28,19 +28,12 @@
         </ion-item>
 <ion-item>
     <ion-label position="stacked">Tags</ion-label>
-    <!--<ion-tags-input style=[(ngModel)]="tags" (onChange)=onChange($event) [color]="'random'" [once]="'true'" [separatorStr]="','">-->
-        <!---->
-    <!--</ion-tags-input>-->
-        <ion-chip #me>
-        <ion-label>Happy</ion-label>
-        <ion-button fill="clear" (click)="removeTag(me)" no-padding>
+    <ion-input type="text" placeholder="+tag" [(ngModel)]="tagEntry" (keyup.enter)="addTags()"></ion-input>
+    <ion-chip *ngFor="let tag of tags">
+        {{tag}}
+        <ion-button fill="clear" no-padding (click)="removeTag(tag)">
             <ion-icon name="close-circle"></ion-icon>
         </ion-button>
-    </ion-chip>
-
-    <ion-chip>
-        <ion-label>Presentation</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
     </ion-chip>
 </ion-item>
 
