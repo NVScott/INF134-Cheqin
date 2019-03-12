@@ -32,6 +32,7 @@ export class FirebaseService {
           "color": color,
           "content": entry,
           "fromUser": true,
+          "method": "Cheqin App"
           "tags": [],
           "timestamp": myTime
       });
