@@ -361,9 +361,12 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
     automatedAsk(conv,"Awesome job! I'm glad that you're having such a good day. ", false, false);
   } else if (userEmotionType === "positiveLow") {
     automatedAsk(conv,"Awesome! It sounds like you day has a lot of potential. ", false, false);
-  } else if (userEmotionType === "negativeHigh" || userEmotionType === "negativeLow") {
-    automatedAsk(conv,"Awesome job! A lot of times, venting can be one of the best ways to " +
-    "relief anger and frustration. ", false, false);
+  } else if (userEmotionType === "negativeHigh") {
+    automatedAsk(conv,"Thanks for letting me listen to you. A lot of times, venting can be one of the best ways to " +
+    "relieve anger and frustration. ", false, false);
+  } else if (userEmotionType === "negativeLow") {
+    automatedAsk(conv, "Thanks for sharing with me. I hope that this helped, even a little. Please dedicate some " +
+        "time to self-care today -- you deserve it.")
   }
   automatedAsk(conv," Before you go, do you want me to save this chat as a journal entry?", false, false);
   conv.ask(new Suggestions('Yes', 'No'));
