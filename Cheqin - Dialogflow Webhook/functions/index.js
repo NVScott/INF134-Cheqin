@@ -758,6 +758,7 @@ function updateDatabase(conv) {
       "chatLog": conv.data.journalContent,
       "color": conv.data.storedColor,
       "journalEntry": conv.data.journalEntry,
+      "timestamp": (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1),
       "method": method,
       "tags": []
     });
