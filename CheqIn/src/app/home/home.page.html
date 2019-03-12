@@ -1,43 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Cheqin
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Cheqin
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div text-center>
-          <img src="../../assets/mascot/1.png" alt="Smiling Umbrella">
-        </div>
-      </ion-col>
-      <ion-col>
-        <div class="arrow box">
-          Would you like to check-in?
-          <ion-button (click)=presentModal()>YEET</ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
-    <div class="back">
-      <ion-row>
-        Activity Log
-      </ion-row>
-      <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
-        <ion-card-header>{{singleData.timestamp}}
-          <!--
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div text-center>
+                    <img src="../../assets/mascot/1.png" alt="Smiling Umbrella">
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="arrow box">
+                    Would you like to check-in?
+                    <ion-button (click)=onSelect()>YES</ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+        <div class="activityLog">
+            <div id="activityTitle">Activity Log</div>
+            <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" class="mainText">
+                <ion-card-header text-center>{{singleData.timestamp | date: 'MMM d, y, h:mm:ss a'}}
+                </ion-card-header>
+                <ion-card-content [ngStyle]="{'background-color': singleData.color}">
 
-            "onSelect('hello world')"
-          <ion-icon name="close" (click)="closeCard(data.id)" float-right>
-          </ion-icon>
-          -->
-        </ion-card-header>
-        <ion-card-content>
-          {{singleData.content}}
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </ion-grid>
+                    <!-- <div style="background: '{{singleData.color}}'">test</div> -->
+
+                    {{singleData.content}}
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </ion-grid>
 </ion-content>
+

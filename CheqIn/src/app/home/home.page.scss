@@ -8,8 +8,37 @@ img {
   height: auto;
 }
 
-.back {
-  background-color: #ffffff;
+// .back {
+//   background-color: #ffffff;
+// }
+.activityLog {
+  // background-color: hsl(0, 0%, 100%);
+  --background: hsl(0, 0%, 100%);
+  text-align: center;
+}
+
+#activityTitle {
+  text-align: center;
+  font-weight: 700;
+  position:relative;
+  padding: 20px;
+  font-size: 25px;
+}
+
+.mainText {
+  --background: white;
+}
+#logTitle {
+  font-weight: 900;
+  border-style: none;
+}
+
+.redText {
+  --background: red;
+}
+
+.blueText {
+  --background: blue;
 }
 
 .box {
@@ -42,6 +71,4 @@ img {
 
 ion-content{
   --ion-background-color: var(--ion-color-back);
-
-
 }

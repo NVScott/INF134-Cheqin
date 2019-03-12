@@ -66,6 +66,39 @@ export class HomePage implements OnInit {
     this.userEmail = "";
     this.userPassword = "";
   }
-
-
 }
+
+  
+// ngOnInit() {
+//   //populate activity data in home page
+//   this.firebaseService.getData().subscribe(data => {
+//     this.dataLog = data
+//     // console.log("homepage data = " + this.dataLog[1].content);
+
+//     // if(data){
+//     //   data.map( test => {
+//     //     var temp = test.payload.doc.data();
+        
+//     //     //filter database by mobile app entries (ie chatLog is empty)
+//     //     if(temp.chatLog.length == 0) {
+//     //       var ts = new Date(temp.timestamp);
+//     //       console.log("color is " + temp.color);
+//     //       console.log("time is " + ts.toLocaleTimeString());
+//     //       console.log("date is "+ ts.toLocaleDateString());
+//     //       console.log("content is " + temp.content);
+//     //     }
+//     //     // filter by google home entries (chatLog contains journal entries)
+//     //     else {
+//     //       var cLogLength = temp.chatLog.length;
+//     //       for(var i = 0; i < cLogLength - 1; ++i){
+//     //         var ts = new Date(temp.chatLog[i].timestamp);
+//     //       console.log("Google Home color is " + temp.chatLog[i].color);
+//     //       console.log("Google Home time is " + ts.toLocaleTimeString());
+//     //       console.log("Google Home date is "+ ts.toLocaleDateString());
+//     //       console.log("Google content is " + temp.chatLog[i].content);
+//     //       }
+//     //     }
+//     //   });
+      
+//     // }
+//   });
