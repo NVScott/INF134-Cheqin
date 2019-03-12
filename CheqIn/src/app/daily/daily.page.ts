@@ -30,6 +30,30 @@ export class DailyPage implements OnInit {
     "black": "rgb(9,9,9)",
     "white": "rgb(239,239,239)"
   };
+  colorDescription = {
+    "pink": "Happy, Excited, Overjoyed, or Silly.",
+    "red":"Angry, Annoyed, Frustrated, or Irritated.",
+    "orange": "Anxious, Nervous, or Insecure.",
+    "yellow": "Energetic, Hyper, or Manic.",
+    "green": "Calm, Refreshed, Relaxed, or Zen.",
+    "blue": "Depressed, Sad, Emotional, Gloomy, or Weepy.",
+    "purple": "Active, Focused, Motivated, or Productive",
+    "black": "Stressed.",
+    "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy.",
+    "white": "Normal, Neutral, or Uneventful."
+  }
+  // colordesc ={
+  //   "pink": "You feel happy, excited, overjoyed, or silly.",
+  //   "red":"You feel angry, annoyed, frustrated, or irritated.",
+  //   "orange": "You feel anxious, nervous, or insecure.",
+  //   "yellow": "You feel energetic, hyper, or manic.",
+  //   "green": "You feel calm, refreshed, relaxed, or zen.",
+  //   "blue": "You feel depressed, sad, emotional, gloomy, or weepy.",
+  //   "purple": "You feel active, focused, motivated, or productive",
+  //   "black": "You feel stressed.",
+  //   "grey": "You feel exhausted, fatigued, tired, lethargic, sleepy, or lazy.",
+  //   "white": "You feel normal, neutral, or uneventful."
+  // };
   constructor(
     public navCtrl: NavController,
     public navSer: NavService,
