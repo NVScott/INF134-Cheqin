@@ -9,5 +9,13 @@
 
 <ion-content no-padding>
   <canvas id="myChart" max-height="20%"></canvas>
-
+  <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
+    <ion-card-header>
+      <ion-card-subtitle>{{singleData.method}}</ion-card-subtitle>
+      <ion-card-title>{{colorDescription[singleData.color]}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{singleData.content}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>
