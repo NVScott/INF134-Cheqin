@@ -458,7 +458,7 @@ app.intent("Prompt For Color - yes", conv => {
 app.intent("Prompt For Color - color clarification", conv => {
   conv.data.repromptCount = 0;
   const possibleColor = emotionColors[conv.data.userEmotion];
-  automatedAsk(`${possibleColor} means that you might be feeling ` +
+  automatedAsk(conv, `${possibleColor} means that you might be feeling ` +
   `${colorExplanations[possibleColor]}. Is this color correct?`);
   conv.ask(new Suggestions('Yes', 'No'));
 })
