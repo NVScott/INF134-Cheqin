@@ -1,47 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Cheqin
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Cheqin
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div text-center>
+            <img src="../../assets/mascot/1.png" alt="Smiling Umbrella">
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="arrow box">
+            Would you like to check-in?
+            <ion-button (click)=onSelect()>YES</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <div class="activityLog">
+          <div id="activityTitle">Activity Log</div> 
+        <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" class="mainText">
+          <ion-card-header text-center>{{singleData.timestamp | date: 'MMM d, y, h:mm:ss a'}}
+          </ion-card-header>
+          <ion-card-content [ngStyle]="{'background-color': singleData.color}">
 
-<ion-content no-scroll>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div text-center>
-          <img src="../../assets/mascot/1.png" alt="Smiling Umbrella">
-        </div>
-      </ion-col>
-      <ion-col>
-        <div class="arrow box">
-          Would you like to check-in?
-          <ion-button (click)="presentModal()">YEET</ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+            <!-- <div style="background: '{{singleData.color}}'">test</div> -->
 
-<ion-content no-line>
-  <div class="activityLog">
-    <div text-center id="logTitle">
-        <ion-text>
-          ACTIVITY 
-        </ion-text>
-    </div>
-    <ion-card *ngFor="let item of dates" class="mainText">
-      <ion-card-header text-center>
-        {{item.date}}
-      </ion-card-header>
-        
-        <ion-item *ngFor="let d of data" [ngClass]="{'redText':d.red, 'blueText':d.blue}" >{{d.entry}}     </ion-item>
-        
-        <!-- nested ngFor loop first through date then through data above ^ -->
-      
-    </ion-card>
-  </div>
-</ion-content>
-
-
+            {{singleData.content}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-grid>
+  </ion-content>

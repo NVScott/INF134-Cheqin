@@ -8,10 +8,23 @@ img {
   height: auto;
 }
 
+// .back {
+//   background-color: #ffffff;
+// }
 .activityLog {
   // background-color: hsl(0, 0%, 100%);
   --background: hsl(0, 0%, 100%);
+  text-align: center;
 }
+
+#activityTitle {
+  text-align: center;
+  font-weight: 700;
+  position:relative;
+  padding: 20px;
+  font-size: 25px;
+}
+
 .mainText {
   --background: white;
 }
@@ -27,10 +40,6 @@ img {
 .blueText {
   --background: blue;
 }
-// .titleCard {
-//   background-color: white;
-//   padding-left: -20px;
-// }
 
 .box {
   margin: auto;
