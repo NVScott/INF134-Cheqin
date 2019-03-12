@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentData } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData, AngularFirestoreDocument} from '@angular/fire/firestore';
 import { UserData } from '../data/user-data';
 import { Observable } from 'rxjs';
 
@@ -38,8 +38,8 @@ export class FirebaseService {
   }
 
 
-  getUserData():Observable<DocumentData[]>{
+  getUserData():Observable<{}>{
   	//TODO: implement this function to retrieve sleep logs
-    return this.collection.valueChanges();
+    return this.collection.doc("ABwppHGjzNZfhjmK2ZtvJoPkUXI-nPKZYN7q_Dw_v5eGg2rORLMMzU8XpUfLVuvRKNqTvafMcu3N_gnT").collection("logs").valueChanges();
   }
 }
