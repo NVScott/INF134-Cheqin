@@ -38,7 +38,18 @@ export class HomePage implements OnInit {
 
   onSelect(timeStamp) {
     console.log(`HomePage: ${timeStamp}`);
-    this.navCtrl.push('daily', {timeStamp: timeStamp});
+    let date = new Date(timeStamp);
+    let tempArray = [];
+    this.data.forEach(value => {
+      let currDate = new Date(value.timestamp);
+      console.log(currDate);
+      if(date.getDate() == currDate.getDate()
+      && date.getMonth() == currDate.getMonth()
+      && date.getFullYear() == currDate.getFullYear()){
+        tempArray.push(value);
+      }
+    })
+    this.navCtrl.push('daily', {timeStamp: date, data: tempArray});
   }
 
   onSubmit() {
