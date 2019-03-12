@@ -11,6 +11,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './services/auth.service';
+import { NavService } from './services/nav.services';
 import { firebaseConfig } from './credentials';
 import { environment } from "../environments/environment";
 
@@ -38,6 +39,7 @@ import { CheckInComponent } from './check-in/check-in.component';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireAuth,
     AuthService,
+    NavService,
   ],
   bootstrap: [AppComponent]
 })

@@ -28,8 +28,12 @@ export class HomePage implements OnInit {
     this.firebaseService.getUserData().subscribe(data => {
       this.data = data;
       console.log(data);
+<<<<<<< HEAD
     });
     document.getElementById('cardColor').style.backgroundColor = "red";
+=======
+    })
+>>>>>>> 605ebef0dc38cb1aea123c477a82d7113819f226
   }
 
   async presentModal() {

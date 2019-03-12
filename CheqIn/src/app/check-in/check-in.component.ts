@@ -10,7 +10,8 @@ import * as raphael from "raphael";
   styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit {
-  tags = [];
+    tagEntry = "";
+  tags = ["test"];
   entry = "";
   color = "brown";
   colordesc =
@@ -47,12 +48,27 @@ export class CheckInComponent implements OnInit {
   }
 
   submitCheckin(myTime, myDate, entry, color,tags) {
+        this.dismiss();
         this.firebaseService.addEntry(myTime, myDate, entry, color, tags);
         console.log("Submitting Checkin");
   }
 
   dismiss(){
     this.modalController.dismiss()
+  }
+
+  removeTag(tag) {
+        this.tags.splice(this.tags.indexOf(tag), 1);
+
+  }
+
+  addTags() {
+        this.tagEntry = this.tagEntry.toLowerCase();
+        if (this.tags.includes(this.tagEntry)) {
+        } else {
+            this.tags.push(this.tagEntry);
+        }
+        this.tagEntry = "";
   }
 
 

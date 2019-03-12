@@ -24,21 +24,16 @@
         <!--Entry-->
         <ion-item>
             <ion-label position="stacked">Entry</ion-label>
-            <ion-textarea rows=5 placeholder="I'm giving presentation and I feel like its going very well! " [(ngModel)]="entry"></ion-textarea>
+            <ion-textarea rows=5 placeholder="Tell me about your day... :) " [(ngModel)]="entry"></ion-textarea>
         </ion-item>
 <ion-item>
     <ion-label position="stacked">Tags</ion-label>
-    <!--<ion-tags-input style=[(ngModel)]="tags" (onChange)=onChange($event) [color]="'random'" [once]="'true'" [separatorStr]="','">-->
-        <!---->
-    <!--</ion-tags-input>-->
-        <ion-chip>
-        <ion-label>Happy</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-    </ion-chip>
-
-    <ion-chip>
-        <ion-label>Presentation</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
+    <ion-input type="text" placeholder="+tag" [(ngModel)]="tagEntry" (keyup.enter)="addTags()"></ion-input>
+    <ion-chip *ngFor="let tag of tags">
+        {{tag}}
+        <ion-button fill="clear" no-padding (click)="removeTag(tag)">
+            <ion-icon name="close-circle"></ion-icon>
+        </ion-button>
     </ion-chip>
 </ion-item>
 
