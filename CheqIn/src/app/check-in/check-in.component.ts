@@ -47,12 +47,18 @@ export class CheckInComponent implements OnInit {
   }
 
   submitCheckin(myTime, myDate, entry, color,tags) {
+        this.dismiss();
         this.firebaseService.addEntry(myTime, myDate, entry, color, tags);
         console.log("Submitting Checkin");
   }
 
   dismiss(){
     this.modalController.dismiss()
+  }
+
+  removeTag(tag: Element) {
+        console.log(tag);
+        tag.remove();
   }
 
 

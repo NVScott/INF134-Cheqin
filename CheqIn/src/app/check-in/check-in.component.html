@@ -31,9 +31,11 @@
     <!--<ion-tags-input style=[(ngModel)]="tags" (onChange)=onChange($event) [color]="'random'" [once]="'true'" [separatorStr]="','">-->
         <!---->
     <!--</ion-tags-input>-->
-        <ion-chip>
+        <ion-chip #me>
         <ion-label>Happy</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
+        <ion-button fill="clear" (click)="removeTag(me)" no-padding>
+            <ion-icon name="close-circle"></ion-icon>
+        </ion-button>
     </ion-chip>
 
     <ion-chip>
