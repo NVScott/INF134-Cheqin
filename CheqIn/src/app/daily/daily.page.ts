@@ -16,7 +16,20 @@ export class DailyPage implements OnInit {
   colorTracker = new Object();
   colors = [];
   colorsData = [];
-
+  colorsBackground = [];
+  colorsBorderColor = [];
+  colorLibrary = {
+    "red": "rgb(215,70,70)",
+    "orange":  "rgb(237,145,0)",
+    "yellow": "rgb(235,216,13)",
+    "green": "rgb(128,212,34)",
+    "blue": "rgb(85,164,255)",
+    "purple": "rgb(121,38,165)",
+    "pink": "rgb(255,98,151)",
+    "gray": "rgb(135,135,135)",
+    "black": "rgb(9,9,9)",
+    "white": "rgb(239,239,239)"
+  };
   constructor(
     public navCtrl: NavController,
     public navSer: NavService,
@@ -39,6 +52,8 @@ export class DailyPage implements OnInit {
     });
     this.colors.forEach(value => {
       this.colorsData.push(this.colorTracker[value]);
+      this.colorsBackground.push(this.colorLibrary[value]);
+      this.colorsBorderColor.push("rgb(21, 62, 127)");
     });
     console.log(this.colors);
     console.log(this.colorsData);
@@ -50,20 +65,8 @@ export class DailyPage implements OnInit {
         datasets: [{
             label: '# of Votes',
             data: this.colorsData,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)'
-            ],
+            backgroundColor: this.colorsBackground,
+            borderColor: this.colorsBorderColor,
             borderWidth: 1
         }]
     }
