@@ -1,4 +1,15 @@
 <ion-header>
+<<<<<<< HEAD
+    <ion-toolbar>
+      <ion-title>
+        Cheqin
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+=======
   <ion-toolbar>
     <ion-title>
       Cheqin
@@ -22,9 +33,37 @@
       </ion-col>
     </ion-row>
     <div class="back">
+>>>>>>> 605ebef0dc38cb1aea123c477a82d7113819f226
       <ion-row>
-        Activity Log
+        <ion-col>
+          <div text-center>
+            <img src="../../assets/mascot/1.png" alt="Smiling Umbrella">
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="arrow box">
+            Would you like to check-in?
+            <ion-button (click)=onSelect()>YES</ion-button>
+          </div>
+        </ion-col>
       </ion-row>
+<<<<<<< HEAD
+      <div class="activityLog">
+          <div id="activityTitle">Activity Log</div> 
+        <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" class="mainText">
+          <ion-card-header text-center>{{singleData.timestamp | date: 'MMM d, y, h:mm:ss a'}}
+          </ion-card-header>
+          <ion-card-content [ngStyle]="{'background-color': singleData.color}">
+
+            <!-- <div style="background: '{{singleData.color}}'">test</div> -->
+
+            {{singleData.content}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-grid>
+  </ion-content>
+=======
       <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
         <ion-card-header>{{singleData.timestamp}}
           <!--
@@ -41,3 +80,4 @@
     </div>
   </ion-grid>
 </ion-content>
+>>>>>>> 605ebef0dc38cb1aea123c477a82d7113819f226
