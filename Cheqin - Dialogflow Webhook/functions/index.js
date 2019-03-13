@@ -486,9 +486,9 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
     automatedAsk(conv, "Awesome! It sounds like you day has a lot of potential. ", false, false);
   } else if (userEmotionType === "negativeHigh") {
     automatedAsk(conv, "Thanks for letting me listen to you. A lot of times, venting can be one of the best ways to " +
-    "relieve anxiety and frustration. I hope it helped!", false, false);
+    "relieve anxiety and frustration.", false, false);
   } else if (userEmotionType === "negativeLow") {
-    automatedAsk(conv, "Thanks for sharing with me. I hope that this helped, even a little. Please dedicate some " +
+    automatedAsk(conv, "Thanks for sharing with me. Please dedicate some " +
         "time to self-care today -- you deserve it.");
   }
   automatedAsk(conv, " Before you go, do you want me to save this chat as a journal entry?", false, false);
@@ -651,7 +651,7 @@ app.intent("Prompt For Color - no - fallback", conv => {
 // Prompts the user to optionally add tags to a journal entry.
 app.intent("Prompt for Tags", (conv) => {
   conv.data.repromptCount = 0;
-  automatedAsk(conv, `Okay, the color ${conv.data.storedColor} has been saved! One last thing: ` +
+  automatedAsk(conv, `Got it! The color ${conv.data.storedColor} has been saved! One last thing: ` +
            `do you have any tags to add to this entry?`, false, false);
   conv.ask(new Suggestions('Yes', 'No'));
 })
@@ -683,7 +683,7 @@ app.intent("Prompt for Tags - no", (conv) => {
 
 // If the user chooses to add tags, prompt the user to list all the desired tags.
 app.intent("Prompt for Tags - yes", (conv) => {
-  automatedAsk(conv,"Okay! Please list any tags you want.");
+  automatedAsk(conv,"Ok, please list any tags you want.");
 })
 
 
@@ -704,9 +704,9 @@ app.intent("Prompt for Tags - yes - fallback", (conv) => {
 app.intent("End Conversation Normally", conv => {
   const userEmotionType = conv.data.emotionType;
   if (userEmotionType === "positiveHigh" || userEmotionType === "positiveLow") {
-    automatedAsk(conv, "Okay! Well I'm glad that I was able to listen to you. Bye!", true, false);
+    automatedAsk(conv, "Alright! Well I'm glad that I was able to listen to you. Bye!", true, false);
   } else {
-    automatedAsk(conv, "Okay! Well I'm glad that I was able to listen to you, " +
+    automatedAsk(conv, "Alright, well I'm glad that I was able to listen to you, " +
     "and I hope it helped, even just a little. Please log with me again soon. Bye!", true, false);
   }
   updateDatabase(conv);
