@@ -372,7 +372,7 @@ app.intent(["Current Emotion Positive High - yes - fallback",
 // "initiated_tips" event.
 app.intent("Initiate Tips Session", (conv) => {
   // This is only for the demo. Actual logic will be emotion dependent in the future.
-  automatedAsk(conv, "Okay. You’ve told me before you like to listen to music and go " +
+  automatedAsk(conv, "Okay. You’ve told me before that you like to listen to music and go " +
   "for jogs when you want to calm down. Would you like to try one of those?", false, false);
   conv.ask(new Suggestions('Yes', 'No'));
 })
@@ -486,7 +486,7 @@ app.intent("Initiate Potential Journal Entry", (conv) => {
     automatedAsk(conv, "Awesome! It sounds like you day has a lot of potential. ", false, false);
   } else if (userEmotionType === "negativeHigh") {
     automatedAsk(conv, "Thanks for letting me listen to you. A lot of times, venting can be one of the best ways to " +
-    "relieve anger and frustration. ", false, false);
+    "relieve anxiety and frustration. I hope it helped!", false, false);
   } else if (userEmotionType === "negativeLow") {
     automatedAsk(conv, "Thanks for sharing with me. I hope that this helped, even a little. Please dedicate some " +
         "time to self-care today -- you deserve it.");
@@ -540,7 +540,7 @@ app.intent("Prompt For Color", conv => {
   conv.data.repromptCount = 0;
   conv.contexts.delete("initiatepotentialjournalentry-followup");
   const possibleColor = emotionColors[conv.data.userEmotion];
-  automatedAsk(conv, `Great! Based on what you told me, I think that you might be feeling ` +
+  automatedAsk(conv, `OK! Based on what you told me, I would assign this entry the color ` +
            `${possibleColor}. Is that correct?`, false, false);
   conv.ask(new Suggestions('Yes', 'No', `What's ${possibleColor}`));
 })
