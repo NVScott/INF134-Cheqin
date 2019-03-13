@@ -28,9 +28,9 @@ export class FirebaseService {
   addEntry(myDate, myTime, entry, color, tags) {
       this.collection.doc("ABwppHGjzNZfhjmK2ZtvJoPkUXI-nPKZYN7q_Dw_v5eGg2rORLMMzU8XpUfLVuvRKNqTvafMcu3N_gnT").collection("logs")
           .doc(String(Date.now())).set({
-          "chatLog": [],
+          "content": [],
           "color": color,
-          "content": entry,
+          "journalEntry": entry,
           "fromUser": true,
           "method": "Cheqin App",
           "tags": [],
