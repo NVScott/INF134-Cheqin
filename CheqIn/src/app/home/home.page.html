@@ -23,24 +23,30 @@
         </ion-row>
         <div class="activityLog">
             <div id="activityTitle">Activity Log</div>
+            
             <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" class="mainText">
-                <ion-card-header text-center>{{singleData.timestamp | date: 'MMM d, y, h:mm:ss a'}}
+                <ion-card-header [ngStyle]="setColor(singleData.color)" text-center>{{singleData.timestamp | date: 'MMM d, y, h:mm:ss a'}}
                 </ion-card-header>
-                <ion-card-content [ngStyle]= "setColor(singleData.color)">
-                
-                <div *ngIf="checkArray(singleData)">
-                    <ion-card-content *ngFor = "let new of newData">
-                        <div *ngIf="checkUser(new)">User:</div>
-                        <div *ngIf="checkGoogle(new)">Google:</div>
-                    {{new.content}}</ion-card-content>
-                </div>
-                    <!-- <div style="background: '{{singleData.color}}'">test</div> -->
-                    <!-- [ngStyle]="{'background-color': singleData.color}" -->
+                <!-- set the color of the card based on color in database -->
+                <!-- <ion-card-content > -->
+                    
+                    <!-- check to see if its a google home entry
+                    <div *ngIf="checkArray(singleData)">
 
-                    {{singleData.content}}
-                </ion-card-content>
+                        <!-- button to show / hide conversation -->
+
+                        <!-- if it is a google home entry loop through conversation and display -->
+                        <!-- <ion-card-content *ngFor="let new of newData">
+                            <div *ngIf="checkUser(new)"><b>User:</b></div>
+                            <div *ngIf="checkGoogle(new)"><b>Google:</b></div>
+                            {{new.content}}
+                        </ion-card-content>
+                    </div> -->
+                    <!-- displays content from the user -->
+                    <!-- {{singleData.content}}  -->
+                <!-- </ion-card-content> -->
+            
             </ion-card>
         </div>
     </ion-grid>
 </ion-content>
-

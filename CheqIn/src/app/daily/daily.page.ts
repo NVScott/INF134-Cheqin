@@ -26,7 +26,7 @@ export class DailyPage implements OnInit {
     "blue": "rgb(85,164,255)",
     "purple": "rgb(121,38,165)",
     "pink": "rgb(255,98,151)",
-    "gray": "rgb(135,135,135)",
+    "grey": "rgb(135,135,135)",
     "black": "rgb(9,9,9)",
     "white": "rgb(239,239,239)"
   };
