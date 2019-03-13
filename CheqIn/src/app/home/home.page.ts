@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
   userEmail = undefined;
   userPassword = undefined;
   data = undefined;
+  newData = undefined;
   colorLibrary = {
     "red": "rgb(215,70,70)",
     "orange":  "rgb(237,145,0)",
@@ -38,8 +39,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.firebaseService.getUserData().subscribe(data => {
-      this.data = data;
+     
       console.log(data);
+      this.data = data.reverse();
+      
     })
   }
 
@@ -65,9 +68,6 @@ export class HomePage implements OnInit {
   }
 
   onSubmit() {
-    //
-    // console.log(`Email: ${this.userEmail}`);
-    // console.log(`Password: ${this.userPassword}`);
     this.firebaseService.addUserData(
       new UserData(
         this.userEmail,
@@ -77,6 +77,25 @@ export class HomePage implements OnInit {
     console.log(`Password: ${this.userPassword}`);
     this.userEmail = "";
     this.userPassword = "";
+  }
+
+  checkArray(data) {
+    // console.log("data in checkArraay is " + data.chatLog.length)
+
+    if(data.chatLog.length > 0){
+      // console.log("array data is " + data.chatLog[2].content);
+      this.newData = data.chatLog;
+      return true;
+    }
+    return false;
+  }
+
+  checkUser(user) {
+    return(user.fromUser ? true : false);
+  }
+
+  checkGoogle(user){
+    return(user.fromUser ? false : true);
   }
 
   setColor(color) {
@@ -145,38 +164,3 @@ export class HomePage implements OnInit {
 
   }
 }
-
-  
-// ngOnInit() {
-//   //populate activity data in home page
-//   this.firebaseService.getData().subscribe(data => {
-//     this.dataLog = data
-//     // console.log("homepage data = " + this.dataLog[1].content);
-
-//     // if(data){
-//     //   data.map( test => {
-//     //     var temp = test.payload.doc.data();
-        
-//     //     //filter database by mobile app entries (ie chatLog is empty)
-//     //     if(temp.chatLog.length == 0) {
-//     //       var ts = new Date(temp.timestamp);
-//     //       console.log("color is " + temp.color);
-//     //       console.log("time is " + ts.toLocaleTimeString());
-//     //       console.log("date is "+ ts.toLocaleDateString());
-//     //       console.log("content is " + temp.content);
-//     //     }
-//     //     // filter by google home entries (chatLog contains journal entries)
-//     //     else {
-//     //       var cLogLength = temp.chatLog.length;
-//     //       for(var i = 0; i < cLogLength - 1; ++i){
-//     //         var ts = new Date(temp.chatLog[i].timestamp);
-//     //       console.log("Google Home color is " + temp.chatLog[i].color);
-//     //       console.log("Google Home time is " + ts.toLocaleTimeString());
-//     //       console.log("Google Home date is "+ ts.toLocaleDateString());
-//     //       console.log("Google content is " + temp.chatLog[i].content);
-//     //       }
-//     //     }
-//     //   });
-      
-//     // }
-//   });

@@ -27,7 +27,13 @@
                 <ion-card-header text-center>{{singleData.timestamp | date: 'MMM d, y, h:mm:ss a'}}
                 </ion-card-header>
                 <ion-card-content [ngStyle]= "setColor(singleData.color)">
-
+                
+                <div *ngIf="checkArray(singleData)">
+                    <ion-card-content *ngFor = "let new of newData">
+                        <div *ngIf="checkUser(new)">User:</div>
+                        <div *ngIf="checkGoogle(new)">Google:</div>
+                    {{new.content}}</ion-card-content>
+                </div>
                     <!-- <div style="background: '{{singleData.color}}'">test</div> -->
                     <!-- [ngStyle]="{'background-color': singleData.color}" -->
 
