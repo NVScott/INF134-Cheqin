@@ -80,7 +80,7 @@ export class HomePage implements OnInit {
   }
 
   setColor(color) {
-    console.log("found this color " + color);
+    //console.log("found this color " + color);
     // var temp;
     // let styles = {
     //   'background-color': this.colorLibrary.
