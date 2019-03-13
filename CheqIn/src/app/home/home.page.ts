@@ -17,6 +17,18 @@ export class HomePage implements OnInit {
   userEmail = undefined;
   userPassword = undefined;
   data = undefined;
+  colorLibrary = {
+    "red": "rgb(215,70,70)",
+    "orange":  "rgb(237,145,0)",
+    "yellow": "rgb(235,216,13)",
+    "green": "rgb(128,212,34)",
+    "blue": "rgb(85,164,255)",
+    "purple": "rgb(121,38,165)",
+    "pink": "rgb(255,98,151)",
+    "gray": "rgb(135,135,135)",
+    "black": "rgb(9,9,9)",
+    "white": "rgb(239,239,239)"
+  };
 
   constructor(
     public firebaseService: FirebaseService,
@@ -65,6 +77,78 @@ export class HomePage implements OnInit {
     console.log(`Password: ${this.userPassword}`);
     this.userEmail = "";
     this.userPassword = "";
+  }
+
+  setColor(color) {
+    console.log("found this color " + color);
+    // var temp;
+    // let styles = {
+    //   'background-color': this.colorLibrary.
+    // };
+    // return styles;
+
+    switch(color) {
+      case "red":
+      let redStyle = {
+        'background-color': this.colorLibrary.red
+      };
+      return redStyle;
+      
+      case "orange":
+      let orangeStyle = {
+        'background-color': this.colorLibrary.orange
+      };
+      return orangeStyle;
+      
+      case "yellow":
+      let yellowStyle = {
+        'background-color': this.colorLibrary.yellow
+      };
+      return yellowStyle;
+      
+      case "green":
+      let greenStyle = {
+        'background-color': this.colorLibrary.green
+      };
+      return greenStyle;
+      
+      case "blue":
+      let blueStyle = {
+        'background-color': this.colorLibrary.blue
+      };
+      return blueStyle;
+
+      case "purple":
+      let purpleStyle = {
+        'background-color': this.colorLibrary.purple
+      };
+      return purpleStyle;
+
+      case "pink":
+      let pinkStyle = {
+        'background-color': this.colorLibrary.pink
+      };
+      return pinkStyle;
+      
+      case "gray":
+      let grayStyle = {
+        'background-color': this.colorLibrary.gray
+      };
+      return grayStyle;
+
+      case "black":
+      let blackStyle = {
+        'background-color': this.colorLibrary.black
+      };
+      return blackStyle;
+
+      case "white":
+      let whiteStyle = {
+        'background-color': this.colorLibrary.white
+      };
+      return whiteStyle;
+    }
+
   }
 }
 
