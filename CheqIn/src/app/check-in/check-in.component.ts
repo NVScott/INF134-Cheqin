@@ -26,8 +26,11 @@ export class CheckInComponent implements OnInit {
             "grey": "You feel exhausted, fatigued, tired, lethargic, sleepy, or lazy.",
             "white": "You feel normal, neutral, or uneventful."
         };
-    myDate: String = new Date().toISOString();
-    myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
+    //myDate: String = new Date().toISOString();
+    currentDate = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
+    myDate: String = this.currentDate.getUTCFullYear() + "-" + this.currentDate.getUTCMonth() + "-" + this.currentDate.getUTCDate();
+    myTime: String = this.currentDate.getHours() + ":" + this.currentDate.getMinutes();
+    //myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
 
     constructor(public modalController: ModalController, public firebaseService: FirebaseService) {
@@ -51,11 +54,13 @@ export class CheckInComponent implements OnInit {
     }
 
     submitCheckin(myTime, myDate, entry, color, tags) {
+        console.log('time: '+ myTime);
+        console.log('date: '+ myDate);
         let day = myDate.split("-");
         let time = myTime.split(":");
-        //console.log(day, time);
-        let newDate = new Date(Number(day[0]), Number(day[1]), day[2], time[0], time[1]);
-        //console.log(newDate);
+        console.log(day, time);
+        let newDate = new Date(Number(day[0]), Number(day[1]), day[2], time[0], time[1]).toISOString().slice(0, -1);;
+        console.log('newDate: '+newDate);
         this.dismiss();
         this.firebaseService.addEntry(newDate, entry, color, tags);
         console.log("Submitting Check-in.");

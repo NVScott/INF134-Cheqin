@@ -32,7 +32,7 @@ export class FirebaseService {
           "fromUser": true,
           "method": "Cheqin App",
           "tags": [],
-          "timestamp": newDate.toISOString()
+          "timestamp": newDate
       });
   }
 
