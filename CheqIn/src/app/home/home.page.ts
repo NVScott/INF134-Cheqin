@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
     this.firebaseService.getUserData().subscribe(data => {
      
       console.log(data);
-      this.data = data.reverse();
+      this.data = data;
       
     })
   }
@@ -79,7 +79,6 @@ export class HomePage implements OnInit {
     this.userPassword = "";
   }
 
-<<<<<<< HEAD
   checkArray(data) {
     // console.log("data in checkArraay is " + data.chatLog.length)
 
@@ -98,15 +97,10 @@ export class HomePage implements OnInit {
   checkGoogle(user){
     return(user.fromUser ? false : true);
   }
-=======
-  setColor(color) {
-    //console.log("found this color " + color);
-    // var temp;
-    // let styles = {
-    //   'background-color': this.colorLibrary.
-    // };
-    // return styles;
->>>>>>> cfebbbe18af6bfd49f722e2d1a6e26b0ddc8662e
+
+  setClass(color) {
+    return 'greenID';
+  }
 
   setColor(color) {
    
