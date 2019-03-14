@@ -23,6 +23,17 @@
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
     </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+      <ion-col size="10">
+        <div *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
+        {{singleData.method}}
+        {{colorDescription[singleData.color]}}
+        {{singleData.journalEntry}}
+        </div>
+      </ion-col>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+    </ion-row>
 
 
     <!--<ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
