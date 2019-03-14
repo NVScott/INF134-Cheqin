@@ -23,20 +23,22 @@
         </ion-row>
         <div class="activityLog">
             <div id="activityTitle">Activity Log</div>
+
+            <div *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" 
+            [ngStyle]="setColor(singleData.color)" class="data">{{singleData.timestamp | date: 'MMM d, y h:mm:ss a'}}</div>
             
-            <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" class="mainText">
-                <div class="setClass(singleData.color)">
+            <!-- <ion-card >
+                <div class="">
                 <ion-card-header text-center>
-                    <ion-row>
-                        <ion-col>
-                                {{singleData.timestamp | date: 'MMM d, y'}}
-                        </ion-col>
+                    
+                        
+                            <div class="greenID"></div>
+                                
+                      
                        
-                        <ion-col >
-                                {{singleData.timestamp | date: 'h:mm:ss a'}}
-                        </ion-col>
-                    </ion-row>
-                </ion-card-header>
+                        
+                   
+                </ion-card-header> -->
             </div>
                 <!-- set the color of the card based on color in database -->
                 <!-- <ion-card-content > -->
@@ -57,7 +59,7 @@
                     <!-- {{singleData.content}}  -->
                 <!-- </ion-card-content> -->
             
-            </ion-card>
-        </div>
+            <!-- </ion-card> -->
+        <!-- </div> -->
     </ion-grid>
 </ion-content>

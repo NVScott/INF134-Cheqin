@@ -13,7 +13,7 @@ img {
 // }
 .activityLog {
   // background-color: hsl(0, 0%, 100%);
-  --background: hsl(0, 0%, 100%);
+  --background: white;
   text-align: center;
 }
 
@@ -33,22 +33,19 @@ img {
   border-style: none;
 }
 
-.greenID {
+.data {
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 10px solid;
   background-color: white;
-  border-color: green;
-  border: 10px;
-}
-
-.redText {
-  --background: red;
-}
-
-.blueText {
-  --background: blue;
-}
-
-.red {
-  --background: yellow;
 }
 
 .box {
