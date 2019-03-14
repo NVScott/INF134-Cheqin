@@ -117,7 +117,7 @@ app.intent("Default Welcome Intent - fallback", conv => {
 // If not, continue anyways and use a neutral greeting.
 app.intent("actions_intent_PERMISSION", (conv, params, permissionGranted) => {
   if (!permissionGranted) {
-    automatedAsk(conv,"Ok, no worries. How are you feeling right now?");
+    automatedAsk(conv,"Hi again Thomas. How are you feeling right now?");
   } else {
     conv.user.storage.userName = conv.user.name.display;
     automatedAsk(conv,`Thanks, ${conv.user.storage.userName}. How are you feeling right now?`);
@@ -751,7 +751,7 @@ function updateDatabase(conv) {
   }
 
   admin.firestore().collection("users")
-    .doc(conv.user._id)
+    .doc("ABwppHGjzNZfhjmK2ZtvJoPkUXI-nPKZYN7q_Dw_v5eGg2rORLMMzU8XpUfLVuvRKNqTvafMcu3N_gnT")
     .collection("logs")
     .doc(conv.data.initiatedTime)
     .set({
