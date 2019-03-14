@@ -8,10 +8,10 @@
 </ion-header>
 
 <ion-content no-padding>
-  <ion-grid no-padding>
+  <ion-grid class="bg full-height" no-padding>
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col size="10" class="ion-text-center data-top">
         <ion-button no-padding size="small" shape="round" fill="outline" (click)="prevDay()"><ion-icon name="arrow-round-back"></ion-icon></ion-button>
         {{month[date.getMonth()]}} {{date.getDate()}}, {{date.getFullYear()}}
         <ion-button no-padding size="small" shape="round" fill="outline" (click)="nextDay()"><ion-icon name="arrow-round-forward"></ion-icon></ion-button>
@@ -20,14 +20,14 @@
     </ion-row>
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <div style="font-size:8pt">Here was your mood at a glance.</div>
+      <ion-col size="10" class="ion-text-center data-mid">
+        <div style="font-size:8pt" >Here was your mood at a glance.</div>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
     </ion-row>
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
-      <ion-col size="10">
+      <ion-col size="10" class="data-mid">
         <canvas id="myChart" width="100%"></canvas>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
@@ -35,20 +35,20 @@
 
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
-      <ion-col size="10">
-        <hr/>
+      <ion-col class="data-mid" size="10">
+        <hr />
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
     </ion-row>
 
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
-      <ion-col size="10">
+      <ion-col size="10" class="data-bot">
         <div *ngFor="let singleData of data" [ngStyle]="setColor(singleData.color)" class="entries">
           <div class="descrip" style="font-weight:bold">{{colorDesc[singleData.color]}}</div>
-          <hr no-margin />
+          <hr *ngIf="singleData.journalEntry.length > 0" no-margin />
           <div class="descrip">{{singleData.journalEntry}}</div>
-          <hr no-margin />
+          <hr *ngIf="singleData.tags.length > 0" no-margin />
           <div>
             <div *ngFor="let singleTag of singleData.tags" class="chip" no-margin>
               {{singleTag}}
