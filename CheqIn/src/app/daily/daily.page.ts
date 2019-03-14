@@ -31,29 +31,19 @@ export class DailyPage implements OnInit {
     "white": "rgb(239,239,239)"
   };
   colorDescription = {
-    "pink": "Happy, Excited, Overjoyed, or Silly.",
-    "red":"Angry, Annoyed, Frustrated, or Irritated.",
-    "orange": "Anxious, Nervous, or Insecure.",
-    "yellow": "Energetic, Hyper, or Manic.",
-    "green": "Calm, Refreshed, Relaxed, or Zen.",
-    "blue": "Depressed, Sad, Emotional, Gloomy, or Weepy.",
+    "pink": "Happy, Excited, Overjoyed, or Silly",
+    "red":"Angry, Annoyed, Frustrated, or Irritated",
+    "orange": "Anxious, Nervous, or Insecure",
+    "yellow": "Energetic, Hyper, or Manic",
+    "green": "Calm, Refreshed, Relaxed, or Zen",
+    "blue": "Depressed, Sad, Emotional, Gloomy, or Weepy",
     "purple": "Active, Focused, Motivated, or Productive",
-    "black": "Stressed.",
-    "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy.",
-    "white": "Normal, Neutral, or Uneventful."
-  }
-  // colordesc ={
-  //   "pink": "You feel happy, excited, overjoyed, or silly.",
-  //   "red":"You feel angry, annoyed, frustrated, or irritated.",
-  //   "orange": "You feel anxious, nervous, or insecure.",
-  //   "yellow": "You feel energetic, hyper, or manic.",
-  //   "green": "You feel calm, refreshed, relaxed, or zen.",
-  //   "blue": "You feel depressed, sad, emotional, gloomy, or weepy.",
-  //   "purple": "You feel active, focused, motivated, or productive",
-  //   "black": "You feel stressed.",
-  //   "grey": "You feel exhausted, fatigued, tired, lethargic, sleepy, or lazy.",
-  //   "white": "You feel normal, neutral, or uneventful."
-  // };
+    "black": "Stressed",
+    "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy",
+    "white": "Normal, Neutral, or Uneventful"
+  };
+  month = ["January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December"];
+
   constructor(
     public navCtrl: NavController,
     public navSer: NavService,
@@ -105,8 +95,71 @@ export class DailyPage implements OnInit {
     this.navCtrl.back();
   }
 
-  // ionViewWillEnter() {
-  //   console.log("Hello");
-  // }
+  setColor(color) {
+
+    switch(color) {
+      case "red":
+        let redStyle = {
+          'border-color': this.colorLibrary.red
+        };
+        return redStyle;
+
+      case "orange":
+        let orangeStyle = {
+          'border-color': this.colorLibrary.orange
+        };
+        return orangeStyle;
+
+      case "yellow":
+        let yellowStyle = {
+          'border-color': this.colorLibrary.yellow
+        };
+        return yellowStyle;
+
+      case "green":
+        let greenStyle = {
+          'border-color': this.colorLibrary.green
+        };
+        return greenStyle;
+
+      case "blue":
+        let blueStyle = {
+          'border-color': this.colorLibrary.blue
+        };
+        return blueStyle;
+
+      case "purple":
+        let purpleStyle = {
+          'border-color': this.colorLibrary.purple
+        };
+        return purpleStyle;
+
+      case "pink":
+        let pinkStyle = {
+          'border-color': this.colorLibrary.pink
+        };
+        return pinkStyle;
+
+      case "grey":
+        let grayStyle = {
+          'border-color': this.colorLibrary.grey
+        };
+        return grayStyle;
+
+      case "black":
+        let blackStyle = {
+          'border-color': this.colorLibrary.black
+        };
+        return blackStyle;
+
+      case "white":
+        let whiteStyle = {
+          'border-color': this.colorLibrary.white
+        };
+        return whiteStyle;
+    }
+
+  }
+
 
 }

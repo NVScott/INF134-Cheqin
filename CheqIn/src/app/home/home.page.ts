@@ -6,7 +6,6 @@ import { UserData } from '../data/user-data';
 
 import { CheckInComponent } from "../check-in/check-in.component";
 import {ModalController} from "@ionic/angular";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 @Component({
   selector: 'app-home',
@@ -92,7 +91,6 @@ export class HomePage implements OnInit {
       case "orange":
       let orangeStyle = {
         'border-color': this.colorLibrary.orange
-
       };
       return orangeStyle;
       

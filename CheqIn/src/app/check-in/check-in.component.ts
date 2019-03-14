@@ -27,9 +27,6 @@ export class CheckInComponent implements OnInit {
             "white": "You feel normal, neutral, or uneventful."
         };
     myDate: String = new Date().toISOString();
-    //currentDate = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
-    //myDate: String = this.currentDate.getUTCFullYear() + "-" + this.currentDate.getUTCMonth() + "-" + this.currentDate.getUTCDate();
-    //myTime: String = this.currentDate.getHours() + ":" + this.currentDate.getMinutes();
     myTime: String = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
 

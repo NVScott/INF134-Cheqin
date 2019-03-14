@@ -29,7 +29,7 @@
 <ion-item>
     <ion-label position="stacked">Tags</ion-label>
     <ion-input type="text" placeholder="+tag" [(ngModel)]="tagEntry" (keyup.enter)="addTags()"></ion-input>
-    <ion-chip *ngFor="let tag of tags">
+    <ion-chip color="secondary" *ngFor="let tag of tags">
         {{tag}}
         <ion-button fill="clear" no-padding (click)="removeTag(tag)">
             <ion-icon name="close-circle"></ion-icon>

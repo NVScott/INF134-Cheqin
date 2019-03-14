@@ -10,6 +10,14 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+* {
+  font-family: Comfortaa, sans-serif;
+}
+
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
 .ion-color-back {
   --ion-color-base: var(--ion-color-back) !important;
   --ion-color-base-rgb: var(--ion-color-back-rgb) !important;
@@ -108,4 +116,3 @@
   --ion-color-shade: var(--ion-color-pink-shade) !important;
   --ion-color-tint: var(--ion-color-pink-tint) !important;
 }
-
