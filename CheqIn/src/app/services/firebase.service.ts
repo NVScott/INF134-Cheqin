@@ -31,7 +31,7 @@ export class FirebaseService {
           "journalEntry": entry,
           "fromUser": true,
           "method": "Cheqin App",
-          "tags": [],
+          "tags": tags,
           "timestamp": newDate
       });
   }

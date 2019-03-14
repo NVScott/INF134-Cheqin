@@ -31,6 +31,11 @@
           <hr no-margin />
           <div class="descrip">{{singleData.journalEntry}}</div>
           <hr no-margin />
+          <div>
+            <div *ngFor="let singleTag of singleData.tags" class="chip" color="secondary">
+              {{singleTag}}
+            </div>
+          </div>
         </div>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>

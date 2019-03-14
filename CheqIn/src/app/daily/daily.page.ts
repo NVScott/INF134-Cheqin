@@ -31,16 +31,16 @@ export class DailyPage implements OnInit {
     "white": "rgb(239,239,239)"
   };
   colorDescription = {
-    "pink": "Happy, Excited, Overjoyed, or Silly.",
-    "red":"Angry, Annoyed, Frustrated, or Irritated.",
-    "orange": "Anxious, Nervous, or Insecure.",
-    "yellow": "Energetic, Hyper, or Manic.",
-    "green": "Calm, Refreshed, Relaxed, or Zen.",
-    "blue": "Depressed, Sad, Emotional, Gloomy, or Weepy.",
+    "pink": "Happy, Excited, Overjoyed, or Silly",
+    "red":"Angry, Annoyed, Frustrated, or Irritated",
+    "orange": "Anxious, Nervous, or Insecure",
+    "yellow": "Energetic, Hyper, or Manic",
+    "green": "Calm, Refreshed, Relaxed, or Zen",
+    "blue": "Depressed, Sad, Emotional, Gloomy, or Weepy",
     "purple": "Active, Focused, Motivated, or Productive",
-    "black": "Stressed.",
-    "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy.",
-    "white": "Normal, Neutral, or Uneventful."
+    "black": "Stressed",
+    "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy",
+    "white": "Normal, Neutral, or Uneventful"
   };
   month = ["January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December"];
 
