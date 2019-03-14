@@ -77,6 +77,7 @@ export class DailyPage implements OnInit {
       if(this.date.getDate() == currDate.getDate()
       && this.date.getMonth() == currDate.getMonth()
       && this.date.getFullYear() == currDate.getFullYear()){
+        value.magicTime = currDate;
         this.data.push(value);
       }
     })
@@ -143,6 +144,7 @@ export class DailyPage implements OnInit {
       if(this.date.getDate() == currDate.getDate()
       && this.date.getMonth() == currDate.getMonth()
       && this.date.getFullYear() == currDate.getFullYear()){
+        value.magicTime = currDate;
         this.data.push(value);
       }
     })
@@ -187,6 +189,7 @@ export class DailyPage implements OnInit {
       if(this.date.getDate() == currDate.getDate()
       && this.date.getMonth() == currDate.getMonth()
       && this.date.getFullYear() == currDate.getFullYear()){
+        value.magicTime = currDate;
         this.data.push(value);
       }
     })

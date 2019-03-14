@@ -741,7 +741,7 @@ function createConvEntry(content, fromUser = true) {
 }
 
 function updateDatabase(conv) {
-  let method = "speaker";
+  let method = "Google Home Mini";
   let surfaceCapabilities = conv.surface["capabilities"]["list"];
   for (let i = 0; i < surfaceCapabilities.length; i++) {
     if (surfaceCapabilities[i]["name"] === "actions.capability.SCREEN_OUTPUT") {
