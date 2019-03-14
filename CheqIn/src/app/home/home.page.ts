@@ -39,11 +39,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.firebaseService.getUserData().subscribe(data => {
-     
-      console.log(data);
-      this.data = data;
-      
-    })
+        this.data = data;
+        this.data.reverse();
+    });
   }
 
   async presentModal() {
