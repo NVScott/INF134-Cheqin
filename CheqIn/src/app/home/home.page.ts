@@ -39,11 +39,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.firebaseService.getUserData().subscribe(data => {
-     
-      console.log(data);
-      this.data = data;
-      
-    })
+        this.data = data;
+        this.data.reverse();
+    });
   }
 
   async presentModal() {
@@ -77,29 +75,6 @@ export class HomePage implements OnInit {
     console.log(`Password: ${this.userPassword}`);
     this.userEmail = "";
     this.userPassword = "";
-  }
-
-  checkArray(data) {
-    // console.log("data in checkArraay is " + data.chatLog.length)
-
-    if(data.chatLog.length > 0){
-      // console.log("array data is " + data.chatLog[2].content);
-      this.newData = data.chatLog;
-      return true;
-    }
-    return false;
-  }
-
-  checkUser(user) {
-    return(user.fromUser ? true : false);
-  }
-
-  checkGoogle(user){
-    return(user.fromUser ? false : true);
-  }
-
-  setClass(color) {
-    return 'greenID';
   }
 
   setColor(color) {
