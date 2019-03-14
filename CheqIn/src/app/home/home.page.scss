@@ -89,6 +89,8 @@ img {
   ;
 }
 
+
+
 .arrow:after {
   content: "";
   width: 0px;
@@ -103,4 +105,5 @@ img {
 
 ion-content{
   --ion-background-color: var(--ion-color-back);
+  height: 100vh;
 }
