@@ -25,8 +25,10 @@
             <div id="activityTitle">Activity Log</div>
 
             <div *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" 
-            [ngStyle]="setColor(singleData.color)" class="data">{{singleData.timestamp | date: 'MMM d, y h:mm:ss a'}}</div>
-            
+            [ngStyle]="setColor(singleData.color)" class="data">{{singleData.timestamp | date: 'h:mm a'}}</div>
+
+
+            <!--'MMM d' -->
             <!-- <ion-card >
                 <div class="">
                 <ion-card-header text-center>

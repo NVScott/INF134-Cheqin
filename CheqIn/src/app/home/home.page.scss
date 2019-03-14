@@ -16,8 +16,7 @@ img {
   // background-color: hsl(0, 0%, 100%);
   background: white;
   text-align: center;
-  margin: 20px;
-  padding: 20px 0 20px 0;
+
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
@@ -27,8 +26,9 @@ img {
   text-align: center;
   font-weight: 700;
   position:relative;
-  padding: 20px;
-  font-size: 25px;
+  font-size: 22px;
+  margin-bottom: 10px;
+  padding-top: 10px;
 }
 
 .mainText {
@@ -45,15 +45,19 @@ img {
   -moz-border-radius: 25px;
   border-radius: 25px;
   height: 100%;
-  padding: 20px;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding: 5px;
+  text-align: right;
+  margin-top: 0px;
+  margin-bottom: 10px;
   margin-right: 20px;
   margin-left: 20px;
-  border: 10px solid;
   background-color: white;
+  border-top: 5px solid white;
+  border-right: 5px solid white;
+  border-bottom: 5px solid white;
+  border-left: 50px solid white;
 }
+
 
 .box {
   margin: auto;
