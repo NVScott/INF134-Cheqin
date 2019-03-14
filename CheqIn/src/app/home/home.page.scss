@@ -16,7 +16,8 @@ img {
   // background-color: hsl(0, 0%, 100%);
   background: white;
   text-align: center;
-
+  margin: 20px;
+  padding: 0px 0 20px 0;
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
@@ -31,6 +32,15 @@ img {
   padding-top: 10px;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .mainText {
   --background: white;
 }
@@ -40,7 +50,14 @@ img {
   border-style: none;
 }
 
+.datething {
+  margin-left: 10px;
+  font-size: 14px;
+  padding-right: 2px;
+}
+
 .data {
+  flex-grow: 8;
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
@@ -49,13 +66,12 @@ img {
   text-align: right;
   margin-top: 0px;
   margin-bottom: 10px;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 10px;
   background-color: white;
   border-top: 5px solid white;
   border-right: 5px solid white;
   border-bottom: 5px solid white;
-  border-left: 50px solid white;
+  border-left: 40px solid white;
 }
 
 

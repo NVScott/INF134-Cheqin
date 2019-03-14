@@ -24,11 +24,13 @@
         <div class="activityLog">
             <div id="activityTitle">Activity Log</div>
 
-            <div *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" 
-            [ngStyle]="setColor(singleData.color)" class="data">{{singleData.timestamp | date: 'h:mm a'}}</div>
+            <div *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)" class="flex-container">
+                <div class="datething">{{(singleData.timestamp | date : 'MMM').toUpperCase()}}<br>{{singleData.timestamp | date : 'd'}}</div>
+                <div [ngStyle]="setColor(singleData.color)" class="data">{{singleData.timestamp | date: 'h:mm a'}}</div>
+            </div>
 
 
-            <!--'MMM d' -->
+
             <!-- <ion-card >
                 <div class="">
                 <ion-card-header text-center>
