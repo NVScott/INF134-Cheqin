@@ -41,19 +41,9 @@ export class DailyPage implements OnInit {
     "black": "Stressed.",
     "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy.",
     "white": "Normal, Neutral, or Uneventful."
-  }
-  // colordesc ={
-  //   "pink": "You feel happy, excited, overjoyed, or silly.",
-  //   "red":"You feel angry, annoyed, frustrated, or irritated.",
-  //   "orange": "You feel anxious, nervous, or insecure.",
-  //   "yellow": "You feel energetic, hyper, or manic.",
-  //   "green": "You feel calm, refreshed, relaxed, or zen.",
-  //   "blue": "You feel depressed, sad, emotional, gloomy, or weepy.",
-  //   "purple": "You feel active, focused, motivated, or productive",
-  //   "black": "You feel stressed.",
-  //   "grey": "You feel exhausted, fatigued, tired, lethargic, sleepy, or lazy.",
-  //   "white": "You feel normal, neutral, or uneventful."
-  // };
+  };
+  month = ["January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December"];
+
   constructor(
     public navCtrl: NavController,
     public navSer: NavService,

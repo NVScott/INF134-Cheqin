@@ -3,19 +3,37 @@
     <ion-buttons slot="start">
       <ion-back-button (click)="back()"></ion-back-button>
     </ion-buttons>
-    <ion-title>daily</ion-title>
+    <ion-title>Data</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content no-padding>
-  <canvas id="myChart" max-height="20%"></canvas>
-  <ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
-    <ion-card-header>
-      <ion-card-subtitle>{{singleData.method}}</ion-card-subtitle>
-      <ion-card-title>{{colorDescription[singleData.color]}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      {{singleData.content}}
-    </ion-card-content>
-  </ion-card>
+  <ion-grid no-padding>
+    <ion-row no-padding>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        {{month[date.getMonth()]}} {{date.getDate()}}, {{date.getFullYear()}}
+      </ion-col>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+      <ion-col size="10">
+        <canvas id="myChart" max-height="40%"></canvas>
+      </ion-col>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+    </ion-row>
+
+
+    <!--<ion-card *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
+      <ion-card-header>
+        <ion-card-subtitle>{{singleData.method}}</ion-card-subtitle>
+        <ion-card-title>{{colorDescription[singleData.color]}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{singleData.content}}
+      </ion-card-content>
+    </ion-card>-->
+
+  </ion-grid>
 </ion-content>
