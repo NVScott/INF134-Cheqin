@@ -24,9 +24,11 @@ var colorDescription = {
 })
 export class DailyPage implements OnInit {
 
+  allData = undefined;
   date = undefined;
   data = undefined;
   colorTracker = new Object();
+  myChart = undefined;
   colors = [];
   colorsData = [];
   colorsBackground = [];
@@ -67,7 +69,17 @@ export class DailyPage implements OnInit {
   ngOnInit() {
     //
     this.date = new Date(this.navSer.data["timeStamp"]);
-    this.data = this.navSer.data["data"];
+    this.allData = this.navSer.data["data"];
+    this.data = [];
+    this.allData.forEach(value => {
+      let currDate = new Date(value.timestamp);
+      console.log(currDate);
+      if(this.date.getDate() == currDate.getDate()
+      && this.date.getMonth() == currDate.getMonth()
+      && this.date.getFullYear() == currDate.getFullYear()){
+        this.data.push(value);
+      }
+    })
     // console.log(`date ${this.date}`);
     this.data.forEach(value => {
       if(this.colorTracker[value.color] == undefined){
@@ -83,10 +95,8 @@ export class DailyPage implements OnInit {
       this.colorsBackground.push(this.colorLibrary[value]);
       this.colorsBorderColor.push("rgb(21, 62, 127)");
     });
-    console.log(this.colors);
-    console.log(this.colorsData);
     var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    this.myChart = new Chart(ctx, {
       type: 'doughnut',
     data: {
         labels: this.colors,
@@ -118,10 +128,99 @@ export class DailyPage implements OnInit {
       }
 
   });
-    console.log(this.colorTracker);
+  // console.log(myChart);
     // this.firebaseService.getUserData.subscribe(data => {
     //
     // })
+  }
+
+  prevDay(){
+    this.date.setDate(this.date.getDate() - 1);
+    this.data = [];
+    this.allData.forEach(value => {
+      let currDate = new Date(value.timestamp);
+      console.log(currDate);
+      if(this.date.getDate() == currDate.getDate()
+      && this.date.getMonth() == currDate.getMonth()
+      && this.date.getFullYear() == currDate.getFullYear()){
+        this.data.push(value);
+      }
+    })
+    // console.log(`date ${this.date}`);
+    this.colorTracker = new Object();
+    this.colors = [];
+    this.colorsData = [];
+    this.colorsBackground = [];
+    this.colorsBorderColor = [];
+    this.data.forEach(value => {
+      if(this.colorTracker[value.color] == undefined){
+        this.colorTracker[value.color] = 1;
+        this.colors.push(value.color);
+      }
+      else{
+        this.colorTracker[value.color] += 1;
+      }
+    });
+    this.colors.forEach(value => {
+      this.colorsData.push(this.colorTracker[value]);
+      this.colorsBackground.push(this.colorLibrary[value]);
+      this.colorsBorderColor.push("rgb(21, 62, 127)");
+    });
+
+    this.myChart.data.labels = this.colors;
+    this.myChart.data.datasets = [{
+                label: '# of Votes',
+                data: this.colorsData,
+                backgroundColor: this.colorsBackground,
+                borderColor: this.colorsBorderColor,
+                borderWidth: 1
+            }];
+    this.myChart.update();
+  }
+
+  nextDay(){
+    this.date.setDate(this.date.getDate() + 1);
+    this.data = [];
+    this.allData.forEach(value => {
+      let currDate = new Date(value.timestamp);
+      console.log(currDate);
+      if(this.date.getDate() == currDate.getDate()
+      && this.date.getMonth() == currDate.getMonth()
+      && this.date.getFullYear() == currDate.getFullYear()){
+        this.data.push(value);
+      }
+    })
+    // console.log(`date ${this.date}`);
+    this.colorTracker = new Object();
+    this.colors = [];
+    this.colorsData = [];
+    this.colorsBackground = [];
+    this.colorsBorderColor = [];
+    this.data.forEach(value => {
+      if(this.colorTracker[value.color] == undefined){
+        this.colorTracker[value.color] = 1;
+        this.colors.push(value.color);
+      }
+      else{
+        this.colorTracker[value.color] += 1;
+      }
+    });
+    this.colors.forEach(value => {
+      this.colorsData.push(this.colorTracker[value]);
+      this.colorsBackground.push(this.colorLibrary[value]);
+      this.colorsBorderColor.push("rgb(21, 62, 127)");
+    });
+    console.log(this.colors);
+    console.log(this.colorsData);
+    this.myChart.data.labels = this.colors;
+    this.myChart.data.datasets = [{
+                label: '# of Votes',
+                data: this.colorsData,
+                backgroundColor: this.colorsBackground,
+                borderColor: this.colorsBorderColor,
+                borderWidth: 1
+            }];
+    this.myChart.update();
   }
 
   back() {

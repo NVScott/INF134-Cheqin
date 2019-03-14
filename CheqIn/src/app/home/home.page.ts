@@ -62,7 +62,7 @@ export class HomePage implements OnInit {
         tempArray.push(value);
       }
     })
-    this.navCtrl.push('daily', {timeStamp: date, data: tempArray});
+    this.navCtrl.push('daily', {timeStamp: date, data: this.data});
   }
 
   onSubmit() {
@@ -78,32 +78,32 @@ export class HomePage implements OnInit {
   }
 
   setColor(color) {
-   
+
     switch(color) {
       case "red":
       let redStyle = {
         'border-color': this.colorLibrary.red
       };
       return redStyle;
-      
+
       case "orange":
       let orangeStyle = {
         'border-color': this.colorLibrary.orange
       };
       return orangeStyle;
-      
+
       case "yellow":
       let yellowStyle = {
         'border-color': this.colorLibrary.yellow
       };
       return yellowStyle;
-      
+
       case "green":
       let greenStyle = {
         'border-color': this.colorLibrary.green
       };
       return greenStyle;
-      
+
       case "blue":
       let blueStyle = {
         'border-color': this.colorLibrary.blue
@@ -121,7 +121,7 @@ export class HomePage implements OnInit {
         'border-color': this.colorLibrary.pink
       };
       return pinkStyle;
-      
+
       case "grey":
       let grayStyle = {
         'border-color': this.colorLibrary.grey
