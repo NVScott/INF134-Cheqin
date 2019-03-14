@@ -18,6 +18,8 @@ import { environment } from "../environments/environment";
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CheckInComponent } from './check-in/check-in.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 
@@ -32,6 +34,7 @@ import { CheckInComponent } from './check-in/check-in.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'cheqin'),
     AngularFirestoreModule,
+      FlexLayoutModule
   ],
   providers: [
     StatusBar,

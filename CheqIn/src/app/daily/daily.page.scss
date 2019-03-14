@@ -20,8 +20,16 @@
   background-color: #212D71;
   color: white;
   border-radius: 15px;
+  display: inline-flex;
+  flex-wrap: wrap;
   width: fit-content;
-  display: flex;
+  padding: 2px;
+  margin: 2px 0px;
+  margin-left: 5px;
+}
+
+.chip .first {
+  margin-left: 10px;
 }
 
 hr {
@@ -30,4 +38,8 @@ hr {
   border: 0;
   border-top: 1px solid rgba(33, 45, 113, 0.5);
   padding: 0;
+}
+
+ion-icon {
+  font-size: 40px; //Preferred size here
 }

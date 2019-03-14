@@ -4,6 +4,19 @@ import { Chart } from 'chart.js';
 import { NavService } from '../services/nav.services';
 import { FirebaseService } from '../services/firebase.service';
 
+var colorDescription = {
+  "pink": "Happy, Excited, Overjoyed, or Silly",
+  "red":"Angry, Annoyed, Frustrated, or Irritated",
+  "orange": "Anxious, Nervous, or Insecure",
+  "yellow": "Energetic, Hyper, or Manic",
+  "green": "Calm, Refreshed, Relaxed, or Zen",
+  "blue": "Depressed, Sad, Emotional, Gloomy, or Weepy",
+  "purple": "Active, Focused, Motivated, or Productive",
+  "black": "Stressed",
+  "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy",
+  "white": "Normal, Neutral, or Uneventful"
+};
+
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.page.html',
@@ -30,7 +43,7 @@ export class DailyPage implements OnInit {
     "black": "rgb(9,9,9)",
     "white": "rgb(239,239,239)"
   };
-  colorDescription = {
+  colorDesc = {
     "pink": "Happy, Excited, Overjoyed, or Silly",
     "red":"Angry, Annoyed, Frustrated, or Irritated",
     "orange": "Anxious, Nervous, or Insecure",
@@ -42,6 +55,7 @@ export class DailyPage implements OnInit {
     "grey": "Exhausted, Fatigued, Tired, Lethargic, Sleepy, or Lazy",
     "white": "Normal, Neutral, or Uneventful"
   };
+
   month = ["January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December"];
 
   constructor(
@@ -82,8 +96,27 @@ export class DailyPage implements OnInit {
             backgroundColor: this.colorsBackground,
             borderColor: this.colorsBorderColor,
             borderWidth: 1
-        }]
-    }
+        }],
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          enabled: true,
+          bodyFontSize: 8,
+          callbacks: {
+            label: function(tooltipItems, data) {
+              return colorDescription[data.labels[tooltipItems.index]];
+            },
+
+        },
+        tooltipEvents: ["click"],
+
+        }
+
+      }
+
   });
     console.log(this.colorTracker);
     // this.firebaseService.getUserData.subscribe(data => {

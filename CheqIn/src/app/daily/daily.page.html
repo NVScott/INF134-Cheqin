@@ -12,27 +12,45 @@
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
       <ion-col size="10" class="ion-text-center">
+        <ion-button no-padding size="small" shape="round" fill="outline"><ion-icon name="arrow-round-back"></ion-icon></ion-button>
         {{month[date.getMonth()]}} {{date.getDate()}}, {{date.getFullYear()}}
+        <ion-button no-padding size="small" shape="round" fill="outline"><ion-icon name="arrow-round-forward"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <div style="font-size:8pt">Here was your mood at a glance.</div>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
     </ion-row>
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
       <ion-col size="10">
-        <canvas id="myChart"></canvas>
+        <canvas id="myChart" width="100%"></canvas>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
     </ion-row>
+
+    <ion-row no-padding>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+      <ion-col size="10">
+        <hr/>
+      </ion-col>
+      <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
+    </ion-row>
+
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
       <ion-col size="10">
         <div *ngFor="let singleData of data" [ngStyle]="setColor(singleData.color)" class="entries">
-          <div class="descrip" style="font-weight:bold">{{colorDescription[singleData.color]}}</div>
+          <div class="descrip" style="font-weight:bold">{{colorDesc[singleData.color]}}</div>
           <hr no-margin />
           <div class="descrip">{{singleData.journalEntry}}</div>
           <hr no-margin />
-          <div fxLayout="row">
-            <div *ngFor="let singleTag of singleData.tags" class="chip" color="secondary">
+          <div>
+            <div *ngFor="let singleTag of singleData.tags" class="chip" no-margin>
               {{singleTag}}
             </div>
           </div>
