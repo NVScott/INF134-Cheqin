@@ -95,8 +95,71 @@ export class DailyPage implements OnInit {
     this.navCtrl.back();
   }
 
-  // ionViewWillEnter() {
-  //   console.log("Hello");
-  // }
+  setColor(color) {
+
+    switch(color) {
+      case "red":
+        let redStyle = {
+          'border-color': this.colorLibrary.red
+        };
+        return redStyle;
+
+      case "orange":
+        let orangeStyle = {
+          'border-color': this.colorLibrary.orange
+        };
+        return orangeStyle;
+
+      case "yellow":
+        let yellowStyle = {
+          'border-color': this.colorLibrary.yellow
+        };
+        return yellowStyle;
+
+      case "green":
+        let greenStyle = {
+          'border-color': this.colorLibrary.green
+        };
+        return greenStyle;
+
+      case "blue":
+        let blueStyle = {
+          'border-color': this.colorLibrary.blue
+        };
+        return blueStyle;
+
+      case "purple":
+        let purpleStyle = {
+          'border-color': this.colorLibrary.purple
+        };
+        return purpleStyle;
+
+      case "pink":
+        let pinkStyle = {
+          'border-color': this.colorLibrary.pink
+        };
+        return pinkStyle;
+
+      case "grey":
+        let grayStyle = {
+          'border-color': this.colorLibrary.grey
+        };
+        return grayStyle;
+
+      case "black":
+        let blackStyle = {
+          'border-color': this.colorLibrary.black
+        };
+        return blackStyle;
+
+      case "white":
+        let whiteStyle = {
+          'border-color': this.colorLibrary.white
+        };
+        return whiteStyle;
+    }
+
+  }
+
 
 }

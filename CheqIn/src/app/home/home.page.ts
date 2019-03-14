@@ -107,61 +107,61 @@ export class HomePage implements OnInit {
     switch(color) {
       case "red":
       let redStyle = {
-        'background-color': this.colorLibrary.red
+        'border-color': this.colorLibrary.red
       };
       return redStyle;
       
       case "orange":
       let orangeStyle = {
-        'background-color': this.colorLibrary.orange
+        'border-color': this.colorLibrary.orange
       };
       return orangeStyle;
       
       case "yellow":
       let yellowStyle = {
-        'background-color': this.colorLibrary.yellow
+        'border-color': this.colorLibrary.yellow
       };
       return yellowStyle;
       
       case "green":
       let greenStyle = {
-        'background-color': this.colorLibrary.green
+        'border-color': this.colorLibrary.green
       };
       return greenStyle;
       
       case "blue":
       let blueStyle = {
-        'background-color': this.colorLibrary.blue
+        'border-color': this.colorLibrary.blue
       };
       return blueStyle;
 
       case "purple":
       let purpleStyle = {
-        'background-color': this.colorLibrary.purple
+        'border-color': this.colorLibrary.purple
       };
       return purpleStyle;
 
       case "pink":
       let pinkStyle = {
-        'background-color': this.colorLibrary.pink
+        'border-color': this.colorLibrary.pink
       };
       return pinkStyle;
       
       case "grey":
       let grayStyle = {
-        'background-color': this.colorLibrary.grey
+        'border-color': this.colorLibrary.grey
       };
       return grayStyle;
 
       case "black":
       let blackStyle = {
-        'background-color': this.colorLibrary.black
+        'border-color': this.colorLibrary.black
       };
       return blackStyle;
 
       case "white":
       let whiteStyle = {
-        'background-color': this.colorLibrary.white
+        'border-color': this.colorLibrary.white
       };
       return whiteStyle;
     }

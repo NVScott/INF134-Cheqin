@@ -1,3 +1,24 @@
 .sidebar {
   background-color: var(--ion-color-back) !important;
 }
+
+.entries {
+  background-color: #C7EDF7;
+  border-radius: 15px;
+  border-left: 5px solid #000000;
+  margin-bottom: 15px;
+
+}
+
+.descrip {
+  padding: 5px 5px 0px 10px;
+  font-size: 10pt;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid rgba(33, 45, 113, 0.5);
+  padding: 0;
+}

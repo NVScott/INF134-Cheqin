@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button (click)="back()"></ion-back-button>
     </ion-buttons>
@@ -19,17 +19,18 @@
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
       <ion-col size="10">
-        <canvas id="myChart" max-height="40%"></canvas>
+        <canvas id="myChart"></canvas>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
     </ion-row>
     <ion-row no-padding>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>
       <ion-col size="10">
-        <div *ngFor="let singleData of data" (click)="onSelect(singleData.timestamp)">
-        {{singleData.method}}
-        {{colorDescription[singleData.color]}}
-        {{singleData.journalEntry}}
+        <div *ngFor="let singleData of data" [ngStyle]="setColor(singleData.color)" class="entries">
+          <div class="descrip" style="font-weight:bold">{{colorDescription[singleData.color]}}</div>
+          <hr no-margin />
+          <div class="descrip">{{singleData.journalEntry}}</div>
+          <hr no-margin />
         </div>
       </ion-col>
       <ion-col no-padding class="sidebar" size="1"><div class="sidebar"></div></ion-col>

@@ -29,27 +29,10 @@ img {
 .mainText {
   --background: white;
 }
+
 #logTitle {
   font-weight: 900;
   border-style: none;
-}
-
-.greenID {
-  background-color: white;
-  border-color: green;
-  border: 10px;
-}
-
-.redText {
-  --background: red;
-}
-
-.blueText {
-  --background: blue;
-}
-
-.red {
-  --background: yellow;
 }
 
 .box {
@@ -66,7 +49,6 @@ img {
   ;
 }
 
-
 .arrow:after {
   content: "";
   width: 0px;
@@ -78,7 +60,6 @@ img {
   border-bottom: 10px solid transparent;
   left: -17px;
 }
-
 
 ion-content{
   --ion-background-color: var(--ion-color-back);
