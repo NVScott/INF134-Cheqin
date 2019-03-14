@@ -14,6 +14,10 @@
   font-family: Comfortaa, sans-serif;
 }
 
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
 .ion-color-back {
   --ion-color-base: var(--ion-color-back) !important;
   --ion-color-base-rgb: var(--ion-color-back-rgb) !important;
